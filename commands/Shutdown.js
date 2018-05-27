@@ -1,10 +1,6 @@
 const Command = require('../structures/Command')
 
 class Shutdown extends Command {
-  constructor (handler) {
-    super(handler)
-  }
-
   get name () {
     return 'shutdown'
   }

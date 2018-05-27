@@ -13,11 +13,11 @@ class Command {
   }
 
   /**
-	* Function that executes the command according to the passed arguments
-	* @param {Object} event The raw event
-	 * @param {String} [args] The arguments specified by the user
-	 * @abstract
-	 */
+  * Function that executes the command according to the passed arguments
+  * @param {Object} event The raw event
+  * @param {String} [args] The arguments specified by the user
+  * @abstract
+  */
   run (event, args) { } // eslint-disable-line no-unused-vars
 }
 

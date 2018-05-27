@@ -1,23 +1,23 @@
 const WeatherMachine = require('./WeatherMachine')
 const ManyMelodies = require('manymelodies')
 const Shard = require('./shard')
-const GhostCore =require('Core')
+const GhostCore = require('Core')
 const wm = new WeatherMachine({ camelCaseEvents: true })
 const vcm = new ManyMelodies.VoiceConnectionManager()
 const vc = new ManyMelodies.VoiceConnection()
 const shard = new Shard(wm)
 const log = new GhostCore.Logger()
 
-var user_id
-var session_id
-var guild_id
-var channel_id
+var userId
+var sessionId
+var guildId
+var channelId
 
 async function run () {
   log.info('STARTUP', 'Starting')
   await wm.initialize()
   log.info('STARTUP', 'Ready')
-  
+
   vc.on('debug', message => {
     log.info('Worker', message)
   })
@@ -33,19 +33,19 @@ async function run () {
   wm.on('voiceServerUpdate', data => {
     vcm.voiceServerUpdate({
       shard: shard,
-      guild_id: guild_id,
-      channel_id: channel_id,
+      guild_id: guildId,
+      channel_id: channelId,
       endpoint: data.endpoint,
       token: data.token,
-      session_id: session_id,
-      user_id: user_id
+      session_id: sessionId,
+      user_id: userId
     })
   })
   wm.on('voiceStateUpdate', data => {
-    user_id = data.user_id
-    session_id = data.session_id
-    guild_id = data.guild_id
-    channel_id = data.channel_id
+    userId = data.user_id
+    sessionId = data.session_id
+    guildId = data.guild_id
+    channelId = data.channel_id
   })
 }
 

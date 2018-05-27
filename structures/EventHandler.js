@@ -18,10 +18,10 @@ class EventHandler {
   }
 
   /**
-	 * Function to handle incoming events
-	 * @param {Object} event The raw event
-	 * @abstract
-	 */
+  * Function to handle incoming events
+  * @param {Object} event The raw event
+  * @abstract
+  */
   handle (event) { } // eslint-disable-line no-unused-vars
 }
 

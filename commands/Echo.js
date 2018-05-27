@@ -1,10 +1,6 @@
 const Command = require('../structures/Command')
 
 class Echo extends Command {
-  constructor (handler) {
-    super(handler)
-  }
-
   get name () {
     return 'echo'
   }

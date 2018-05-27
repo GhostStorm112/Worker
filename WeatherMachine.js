@@ -2,12 +2,12 @@ require('bluebird')
 require('dotenv').config()
 
 const EventEmitter = require('eventemitter3')
-const GhostCore =require('Core')
 const SnowTransfer = require('snowtransfer')
 const RainCache = require('raincache')
 const AmqpConnector = require('./AqmpConnector')
 const promisifyAll = require('tsubaki').promisifyAll
 const fs = promisifyAll(require('fs'))
+const path = require('path')
 
 // const { camelCaseEventName } = new GhostCore.Utils.camelCaseEventName()
 
@@ -20,7 +20,7 @@ class WeatherMachine extends EventEmitter {
     this.options = Object.assign({
       disabledEvents: null,
       camelCaseEvents: false,
-      eventPath: __dirname + '/eventHandlers/'
+      eventPath: path.join(__dirname, './eventHandlers/')
     }, options)
 
     this.cache = new RainCache({

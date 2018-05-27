@@ -1,10 +1,6 @@
 const EventHandler = require('../structures/EventHandler')
 
 class TestHandler extends EventHandler {
-  constructor (client) {
-    super(client)
-  }
-
   get name () {
     return 'test'
   }

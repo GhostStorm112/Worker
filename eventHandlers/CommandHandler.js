@@ -1,13 +1,13 @@
 const EventHandler = require('../structures/EventHandler')
 const promisifyAll = require('tsubaki').promisifyAll
 const fs = promisifyAll(require('fs'))
-const util = require('util')
+const path = require('path')
 
 class CommandHandler extends EventHandler {
   constructor (client) {
     super(client)
 
-    this.commandPath = __dirname + '/../commands/'
+    this.commandPath = path.join(__dirname, '../commands/')
     this.prefix = 'wm '
     this.mentionRegex = new RegExp(`<@${process.env.BOT_ID}>`)
 
