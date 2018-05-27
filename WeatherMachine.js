@@ -24,7 +24,7 @@ class WeatherMachine extends EventEmitter {
     }, options)
 
     this.cache = new RainCache({
-      storage: { default: new RainCache.Engines.RedisStorageEngine({ password: process.env.REDIS_PASS }) },
+      storage: { default: new RainCache.Engines.RedisStorageEngine({ host: process.env.REDIS_URL, password: process.env.REDIS_PASS }) },
       debug: false
     })
     this.rest = new SnowTransfer(process.env.TOKEN)
