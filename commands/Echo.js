@@ -9,7 +9,7 @@ class Echo extends Command {
     return ['say']
   }
 
-  run (event, args) {
+  async run (event, args) {
     console.log(`ECHO -> ${args}`)
 
     args = args.trim()

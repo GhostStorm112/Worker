@@ -9,7 +9,7 @@ class Shutdown extends Command {
     return ['sh']
   }
 
-  run (event, args) {
+  async run (event, args) {
     console.log(`ECHO -> ${args}`)
     this.client.shard.sendWS('SHUTDOWN', '')
     return this.client.rest.channel.createMessage(event.channel_id, 'Bot shutdown started')

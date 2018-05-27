@@ -1,6 +1,5 @@
 const EventEmitter = require('eventemitter3')
 const amqp = require('amqplib')
-
 class AmqpConnector extends EventEmitter {
   constructor (client) {
     super()

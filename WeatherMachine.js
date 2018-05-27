@@ -3,13 +3,12 @@ require('dotenv').config()
 
 const EventEmitter = require('eventemitter3')
 const SnowTransfer = require('snowtransfer')
+const GhostCore = require('Core')
 const RainCache = require('raincache')
 const AmqpConnector = require('./AqmpConnector')
 const promisifyAll = require('tsubaki').promisifyAll
 const fs = promisifyAll(require('fs'))
 const path = require('path')
-
-// const { camelCaseEventName } = new GhostCore.Utils.camelCaseEventName()
 
 class WeatherMachine extends EventEmitter {
   constructor (options = { }) {
@@ -60,7 +59,7 @@ class WeatherMachine extends EventEmitter {
     // console.log(event)
     if (this.options.disabledEvents && this.options.disabledEvents.has(event.t)) { return null }
 
-    return this.emit(event.t, event.d)
+    return this.emit(this.options.camelCaseEvents ? GhostCore.Utils.CamelCaseEventName(event.t) : event.t, event.d)
   }
 }
 
