@@ -15,4 +15,4 @@ RUN apk add --update \
 \
 # Clean up build dependencies
 && apk del .build-deps
-CMD ["node", "./Shards.js"]
+CMD ["node", "./index.js"]
