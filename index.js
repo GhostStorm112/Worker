@@ -2,6 +2,7 @@ const WeatherMachine = require('./WeatherMachine')
 const ManyMelodies = require('manymelodies')
 const Shard = require('./shard')
 const GhostCore = require('Core')
+const ytdl = require('ytdl-core')
 const wm = new WeatherMachine({ camelCaseEvents: true })
 const vcm = new ManyMelodies.VoiceConnectionManager()
 const vc = new ManyMelodies.VoiceConnection()
@@ -12,21 +13,13 @@ var userId
 var sessionId
 var guildId
 var channelId
+var connection
 
 async function run () {
   log.info('STARTUP', 'Starting')
   await wm.initialize()
   log.info('STARTUP', 'Ready')
 
-  vc.on('debug', message => {
-    log.info('Worker', message)
-  })
-  vc.on('ready', message => {
-    log.info('Worker', message)
-  })
-  vc.on('error', message => {
-    log.info('Worker', message)
-  })
   wm.on('messageCreate', data => {
     return handleMessage(data)
   })
@@ -40,6 +33,13 @@ async function run () {
       session_id: sessionId,
       user_id: userId
     })
+    log.info('vsu', guildId)
+    log.info('vsu', shard)
+    log.info('vsu', channelId)
+    log.info('vsu', data.endpoint)
+    log.info('vsu', data.token)
+    log.info('vsu', sessionId)
+    log.info('vsu', userId)
   })
   wm.on('voiceStateUpdate', data => {
     userId = data.user_id
@@ -58,10 +58,16 @@ async function handleMessage (msg) {
       d: { guild_id: '268807882059939840', channel_id: '268807882059939841', self_mute: false, self_deaf: false }
     }
     shard.sendWS(data.t, data.d)
-    var connection = await vcm.join('268807882059939840', '268807882059939841')
+    connection = await vcm.join('268807882059939840', '268807882059939841')
+    connection.on('ready', message => {
+      log.info('Voice', message)
+    })
+    connection.on('error', message => {
+      log.info('Voice', message)
+    })
   }
   if (msg.content.startsWith('play')) {
-    connection.play('https://www.youtube.com/watch?v=9Zj0JOHJR-s')
+    connection.play(ytdl('https://www.youtube.com/watch?v=9Zj0JOHJR-s'))
   }
 }
 
