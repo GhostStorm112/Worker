@@ -58,10 +58,10 @@ async function handleMessage (msg) {
       d: { guild_id: '268807882059939840', channel_id: '268807882059939841', self_mute: false, self_deaf: false }
     }
     shard.sendWS(data.t, data.d)
-    vcm.join('268807882059939840', '268807882059939841')
+    var connection = await vcm.join('268807882059939840', '268807882059939841')
   }
   if (msg.content.startsWith('play')) {
-    vc.play('https://www.youtube.com/watch?v=9Zj0JOHJR-s')
+    connection.play('https://www.youtube.com/watch?v=9Zj0JOHJR-s')
   }
 }
 
