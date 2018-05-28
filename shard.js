@@ -4,7 +4,7 @@ class Shard {
   }
   sendWS (t, packet) {
     this.wm.connector.sendToGateway({
-      t: 'VOICE_STATE_UPDATE,
+      t: 'VOICE_STATE_UPDATE',
       d: packet
     })
   }
