@@ -2,11 +2,22 @@ class Shard {
   constructor (wm) {
     this.wm = wm
   }
-  sendWS (t, packet) {
+  sendWS (shardID, op, packet) {
     this.wm.connector.sendToGateway({
-      t: 'VOICE_STATE_UPDATE',
+      t: op,
       d: packet
     })
+  }
+  async getShard (msg) {
+    return 0
+  }
+
+  async getChannel (msg) {
+    return this.wm.cache.channel.get(msg.channel_id)
+  }
+
+  async getGuild (msg) {
+    return this.wm.cache.channel.get(msg.guild_id)
   }
 
   oldws (t, packet) {

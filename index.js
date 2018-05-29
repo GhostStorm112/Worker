@@ -1,19 +1,28 @@
 const WeatherMachine = require('./WeatherMachine')
-const ManyMelodies = require('manymelodies')
-const Shard = require('./shard')
 const GhostCore = require('Core')
-const ytdl = require('ytdl-core')
-const wm = new WeatherMachine({ camelCaseEvents: true })
-const vcm = new ManyMelodies.VoiceConnectionManager()
-const vc = new ManyMelodies.VoiceConnection()
-const shard = new Shard(wm)
-const log = new GhostCore.Logger()
+const SandySounds = require('sandysounds')
+const Shard = require('./shard')
+const superagent = require('superagent')
 
+const wm = new WeatherMachine({ camelCaseEvents: true })
+const log = new GhostCore.Logger()
+const shard = new Shard(wm)
+
+var node = [{
+  host: 'localhost',
+  port: 9090,
+  restPort: 2333,
+  userId: '326603853736837121',
+  password: '12345',
+  numShards: 1
+}]
+
+const voice = new SandySounds.Versions.V2(new SandySounds.Clients.Default(shard), node, {failoverRate: 1, failoverLimit: 1})
+var connection
 var userId
 var sessionId
 var guildId
 var channelId
-var connection
 
 async function run () {
   log.info('STARTUP', 'Starting')
@@ -24,22 +33,15 @@ async function run () {
     return handleMessage(data)
   })
   wm.on('voiceServerUpdate', data => {
-    vcm.voiceServerUpdate({
-      shard: shard,
-      guild_id: guildId,
-      channel_id: channelId,
-      endpoint: data.endpoint,
+    voice.voiceServerUpdate({
       token: data.token,
+      endpoint: data.endpoint,
+      userId: userId,
+      guild_id: guildId,
       session_id: sessionId,
-      user_id: userId
+      channel_id: channelId,
+      shardId: 1
     })
-    log.info('vsu', guildId)
-    log.info('vsu', shard)
-    log.info('vsu', channelId)
-    log.info('vsu', data.endpoint)
-    log.info('vsu', data.token)
-    log.info('vsu', sessionId)
-    log.info('vsu', userId)
   })
   wm.on('voiceStateUpdate', data => {
     userId = data.user_id
@@ -49,25 +51,40 @@ async function run () {
   })
 }
 
+async function resolveTracks (node, search) {
+  try {
+    var result = await superagent.get(`http://localhost:2333/loadtracks?identifier=https://www.youtube.com/watch?v=9Zj0JOHJR-s`)
+      .set('Authorization', '12345')
+      .set('Accept', 'application/json')
+  } catch (err) {
+    throw err
+  }
+  if (!result) {
+    console.log('No result!')
+  }
+
+  return result.body // array of tracks resolved from lavalink
+}
 async function handleMessage (msg) {
   const channel = await wm.cache.channel.get(msg.channel_id)
   log.info('Message', `${channel.name}: ${msg.author.username}#${msg.author.discriminator}: ${msg.content}`)
-  if (msg.content.startsWith('test')) {
+
+  if (msg.content.startsWith('join')) {
     let data = {
       t: 'VOICE_STATE_UPDATE',
       d: { guild_id: '268807882059939840', channel_id: '268807882059939841', self_mute: false, self_deaf: false }
     }
-    shard.sendWS(data.t, data.d)
-    connection = await vcm.join('268807882059939840', '268807882059939841')
-    connection.on('ready', message => {
-      log.info('Voice', message)
-    })
-    connection.on('error', message => {
-      log.info('Voice', message)
-    })
+    shard.sendWS(0, data.t, data.d)
+    connection = await voice.join('268807882059939840', '268807882059939841')
   }
   if (msg.content.startsWith('play')) {
-    connection.play(ytdl('https://www.youtube.com/watch?v=9Zj0JOHJR-s'))
+    resolveTracks(node, 'My ordinary life').then(tracks => {
+      if (!tracks) {
+
+      }
+      connection.play(tracks[0].track)
+      console.log(tracks)
+    })
   }
 }
 

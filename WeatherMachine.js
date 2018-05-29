@@ -9,7 +9,6 @@ const AmqpConnector = require('./AqmpConnector')
 const promisifyAll = require('tsubaki').promisifyAll
 const fs = promisifyAll(require('fs'))
 const path = require('path')
-
 class WeatherMachine extends EventEmitter {
   constructor (options = { }) {
     super()
