@@ -4,11 +4,13 @@ require('dotenv').config()
 const EventEmitter = require('eventemitter3')
 const SnowTransfer = require('snowtransfer')
 const GhostCore = require('Core')
+const Shard = require('./shard')
 const RainCache = require('raincache')
 const AmqpConnector = require('./AqmpConnector')
 const promisifyAll = require('tsubaki').promisifyAll
 const fs = promisifyAll(require('fs'))
 const path = require('path')
+
 class WeatherMachine extends EventEmitter {
   constructor (options = { }) {
     super()
@@ -25,9 +27,9 @@ class WeatherMachine extends EventEmitter {
       storage: { default: new RainCache.Engines.RedisStorageEngine({ host: process.env.REDIS_URL, password: process.env.REDIS_PASS }) },
       debug: false
     })
+    this.shard = new Shard(this)
     this.rest = new SnowTransfer(process.env.TOKEN)
     this.connector = new AmqpConnector(this)
-
     this.eventHandlers = new Map()
   }
 
