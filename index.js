@@ -14,10 +14,6 @@ async function run () {
     return handleMessage(data)
   })
 
-  wm.on('voiceServerUpdate', message => wm.shard.sendWS(0,'LVOICE_SERVER_UPDATE', message))
-  wm.on('voiceStateUpdate', message => wm.shard.sendWS(0,'LVOICE_STATE_UPDATE', message))
-  wm.on('voiceServerUpdate', message => console.log(message))
-  wm.on('voiceStateUpdate', message => console.log(message))
   wm.on('ready', data => {
     console.log('ready')
   })

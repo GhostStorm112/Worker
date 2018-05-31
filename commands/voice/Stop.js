@@ -1,20 +1,20 @@
 const Command = require('../structures/Command')
 
-class Echo extends Command {
+class Stop extends Command {
   get name () {
-    return 'echo'
+    return 'stop'
   }
 
   get aliases () {
-    return ['say']
+    return ['st']
   }
 
   async run (event, args) {
-    console.log(`ECHO -> ${args}`)
+    const guild_id = event.guild_id
+    this.client.shard.sendWS(0, 'LSTOP', {guild_id: guild_id})
 
-    args = args.trim()
-    return this.client.rest.channel.createMessage(event.channel_id, args || 'echo!')
+    return this.client.rest.channel.createMessage(event.channel_id, 'Stopping the music')
   }
 }
 
-module.exports = Echo
+module.exports = Stop

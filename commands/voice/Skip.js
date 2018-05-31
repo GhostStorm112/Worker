@@ -1,20 +1,20 @@
 const Command = require('../structures/Command')
 
-class Echo extends Command {
+class Skip extends Command {
   get name () {
-    return 'echo'
+    return 'skip'
   }
 
   get aliases () {
-    return ['say']
+    return ['sk']
   }
 
   async run (event, args) {
-    console.log(`ECHO -> ${args}`)
+    const guild_id = event.guild_id
+    this.client.shard.sendWS(0, 'LSKIP', {guild_id: guild_id})
 
-    args = args.trim()
-    return this.client.rest.channel.createMessage(event.channel_id, args || 'echo!')
+    return this.client.rest.channel.createMessage(event.channel_id, 'Skipping song')
   }
 }
 
-module.exports = Echo
+module.exports = Skip

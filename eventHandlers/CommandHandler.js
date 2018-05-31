@@ -8,7 +8,7 @@ class CommandHandler extends EventHandler {
     super(client)
 
     this.commandPath = path.join(__dirname, '../commands/')
-    this.prefix = 'wm '
+    this.prefix = '=='
     this.mentionRegex = new RegExp(`<@${process.env.BOT_ID}>`)
 
     this.commands = new Map()
@@ -56,10 +56,8 @@ class CommandHandler extends EventHandler {
 
   async loadCommands () {
     const files = await fs.readdirAsync(this.commandPath)
-
     for (const file of files) {
       if (!file.endsWith('.js') || file.includes(' ')) { continue }
-
       const command = new (require(this.commandPath + file))(this)
       this.commands.set(command.name, command)
     }
