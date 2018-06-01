@@ -73,9 +73,8 @@ class WeatherMachine extends EventEmitter {
   }
 
   processEvent (event) {
-    // console.log(event)
     if (this.options.disabledEvents && this.options.disabledEvents.has(event.t)) { return null }
-
+    event.d['shard_id'] = event.shard_id
     return this.emit(this.options.camelCaseEvents ? GhostCore.Utils.CamelCaseEventName(event.t) : event.t, event.d)
   }
 }

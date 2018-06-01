@@ -28,9 +28,7 @@ class CommandHandler extends EventHandler {
 
   handle (event) {
     try {
-      console.log(`MESSAGE -> #${event.channel_id} @${event.author.username}: ${event.content}`)
-
-      // if (event.author.bot || event.author.id === process.env.BOT_ID) { return }
+      if (event.author.bot || event.author.id === process.env.BOT_ID) { return }
 
       let command
       if (this.mentionRegex.test(event.content)) { command = event.content.replace(/^[^ ]+ /, '').trim() } else if (event.content.startsWith(this.prefix)) { command = event.content.substring(this.prefix.length).trim() } else { return }

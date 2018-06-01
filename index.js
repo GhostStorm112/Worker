@@ -13,16 +13,9 @@ async function run () {
   wm.on('messageCreate', data => {
     return handleMessage(data)
   })
-
-  wm.on('ready', data => {
-    console.log('ready')
-  })
 }
 async function handleMessage (msg) {
-  const guild = await wm.cache.channel.get(msg.guild_id)
-  const channel = await wm.cache.channel.get(msg.channel_id)
-
-  log.info('Message', `${channel.name}: ${msg.author.username}#${msg.author.discriminator}: ${msg.content}`)
+  log.info('Message', `${msg.shard_id}:${msg.guild_id}:${msg.guild_id}:${msg.author.username}#${msg.author.discriminator}: ${msg.content}`)
 }
 
 run().catch(error => log.error('STARTUP', error))
