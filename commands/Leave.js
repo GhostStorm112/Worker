@@ -10,12 +10,7 @@ class Leave extends Command {
   }
 
   async run (event, args) {
-    const guild_id = event.guild_id
-    let data = {
-      t: 'LLEAVE',
-      d: { guild_id: guild_id, channel_id: '268807882059939841' }
-    }
-    this.client.shard.sendWS(0, data.t, data.d)
+    this.client.shard.sendWS(0, 'LAVALINK', {action: 'LEAVE', guild_id: event.guild_id, channel_id: '268807882059939841'})
     return this.client.rest.channel.createMessage(event.channel_id, 'Party later?')
   }
 }

@@ -10,21 +10,20 @@ class Play extends Command {
   }
 
   async run (event, args) {
-    const guild_id = event.guild_id
     args = args.trim()
     console.log(args)
     
     console.log('join')
     let data = {
       t: 'VOICE_STATE_UPDATE',
-      d: { guild_id: guild_id, channel_id: '268807882059939841', self_mute: false, self_deaf: false }
+      d: { guild_id: event.guild_id, channel_id: '268807882059939841', self_mute: false, self_deaf: false }
     }
-    this.client.shard.sendWS(0, data.t, data.d)
     // var queue = await this.lavalink.queues.get(event.d.guild_id)
     var songs = await this.client.lavalink.load(`ytsearch:${args}`)
     var song = songs[0]
     console.log(song)
-    this.client.shard.sendWS(0, 'LPLAY', {guild_id: guild_id, song: song.track})
+    this.client.shard.sendWS(0, data.t, data.d)
+    this.client.shard.sendWS(0, 'LAVALINK', {action: 'PLAY', guild_id: event.guild_id, song: song.track})
 
     return this.client.rest.channel.createMessage(event.channel_id, {
       embed: {

@@ -10,9 +10,7 @@ class Stop extends Command {
   }
 
   async run (event, args) {
-    const guild_id = event.guild_id
-    this.client.shard.sendWS(0, 'LSTOP', {guild_id: guild_id})
-
+    this.client.shard.sendWS(0, 'LSTOP', {action: 'STOP', guild_id: event.guild_id})
     return this.client.rest.channel.createMessage(event.channel_id, 'Stopping the music')
   }
 }
