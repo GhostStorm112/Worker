@@ -13,6 +13,11 @@ async function run () {
   wm.on('messageCreate', data => {
     return handleMessage(data)
   })
+
+  wm.on('voiceStateUpdate', data => {
+    console.log(data)
+    // wm.shard.sendWS(data.shard_id, 'VOICE_STATE_UPDATE', { guild_id: data.guild_id, channel_id: '268807882059939841', self_mute: false, self_deaf: false })
+  })
 }
 async function handleMessage (msg) {
   log.info('Message', `${msg.shard_id}:${msg.guild_id}:${msg.guild_id}:${msg.author.username}#${msg.author.discriminator}: ${msg.content}`)
