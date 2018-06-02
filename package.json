@@ -23,7 +23,8 @@
 		"@spectacles/cache": "0.3.12",
 		"eventemitter3": "^3.1.0",
 		"winston": "^3.0.0-rc5",
-		"superagent": "^3.8.3"
+		"superagent": "^3.8.3",
+		"cats-js": "^1.0.2"
 	},
 	"devDependencies": {
 		"eslint": "^4.19.1",

@@ -43,6 +43,7 @@ class WeatherMachine extends EventEmitter {
       redis: this.redis,
       gateway: this.shard
     })
+    
     this.shard = new Shard(this)
     this.rest = new SnowTransfer(process.env.TOKEN)
     this.connector = new AmqpConnector(this)
