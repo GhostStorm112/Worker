@@ -1161,7 +1161,7 @@ node-expat@^2.3.15:
     bindings "^1.2.1"
     nan "^2.3.5"
 
-node-kitsu@^2.0.0:
+node-kitsu@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/node-kitsu/-/node-kitsu-1.0.1.tgz#625a3840461d0e0b7dd75605901f4434deb6a5c7"
   dependencies:
