@@ -1,4 +1,4 @@
-const Command = require('../structures/Command')
+const Command = require('../../structures/Command')
 
 class Leave extends Command {
   get name () {
@@ -10,12 +10,14 @@ class Leave extends Command {
   }
 
   async run (event, args) {
-    const guild_id = event.guild_id
-    let data = {
-      t: 'LLEAVE',
-      d: { guild_id: null, channel_id: null }
+    this.client.shard.sendWS(event.shard_id, 'LAVALINK', {
+      action: 'LEAVE',
+      guild_id: event.guild_id,
+      channel_id: null,
+      self_mute: false,
+      self_deaf: false
     }
-    this.client.shard.sendWS(0, data.t, data.d)
+    )
     return this.client.rest.channel.createMessage(event.channel_id, 'Party later?')
   }
 }

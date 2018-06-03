@@ -1,4 +1,4 @@
-const Command = require('../structures/Command')
+const Command = require('../../structures/Command')
 
 class Resume extends Command {
   get name () {
@@ -10,9 +10,7 @@ class Resume extends Command {
   }
 
   async run (event, args) {
-    const guild_id = event.guild_id
-    this.client.shard.sendWS(0, 'LRESUME', {guild_id: guild_id})
-
+    this.client.shard.sendWS(0, 'LAVALINK', {action: 'RESUME', guild_id: event.guild_id})
     return this.client.rest.channel.createMessage(event.channel_id, 'Resumming the music')
   }
 }

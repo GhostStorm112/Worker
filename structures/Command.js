@@ -12,6 +12,13 @@ class Command {
     throw new Error('name not set')
   }
 
+  get info () {
+    throw new Error('info not set')
+  }
+  get usage () {
+    throw new Error('usage not set')
+  }
+
   /**
   * Function that executes the command according to the passed arguments
   * @param {Object} event The raw event
