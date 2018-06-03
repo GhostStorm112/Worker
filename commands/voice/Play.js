@@ -17,15 +17,25 @@ class Play extends Command {
 
   async run (event, args) {
     args = args.trim()
-    let status = 'Now playing:'
-    const queue = await this.client.lavalink.queues.get(event.guild_id)
-    const songs = await this.client.lavalink.load(`ytsearch:${args}`)
-    const song = songs[0]
+
+    let data
+    let search = false
     
-    console.log(event.shard_id)
+    try {
+      try {
+        data = await this.client.lavalink.load(`${args}`)
+        if (!data || !data.length) throw new Error()
+      } catch (error) {
+        search = true
+        data = (await this.client.lavalink.load(`ytsearch:${args}`))
+      }
+    } catch (error) {
+      return this.client.rest.createMessage(event.channel_id, 'What ever you did it didn\'t work')
+    }
+
     this.client.shard.sendWS(event.shard_id, 'VOICE_STATE_UPDATE', { guild_id: event.guild_id, channel_id: '268807882059939841', self_mute: false, self_deaf: false })
-    this.client.shard.sendWS(event.shard_id, 'LAVALINK', {action: 'PLAY', guild_id: event.guild_id, song: song.track})
-    if (queue.player.playing) { status = 'Queued:' }
+    this.client.shard.sendWS(event.shard_id, 'LAVALINK', {action: 'PLAY', guild_id: event.guild_id, song: data[0].track})
+    console.log([data[0]])
 
     return this.client.rest.channel.createMessage(event.channel_id, {
       embed: {
@@ -33,9 +43,7 @@ class Play extends Command {
           name: `${event.author.username}#${event.author.discriminator} (${event.author.id})`,
           icon_url: `https://cdn.discordapp.com/avatars/${event.author.id}/${event.author.avatar}.webp`
         },
-        description: `
-          **${status}** [${song.info.title}](${song.info.uri})
-        `
+        description: `**Queued:** [${data[0].info.title}](${data[0].info.uri})`
       }
     })
   }
