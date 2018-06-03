@@ -1,4 +1,4 @@
-const Command = require('../structures/Command')
+const Command = require('../../structures/Command')
 const Cats = require('cats-js')
 
 class Echo extends Command {
