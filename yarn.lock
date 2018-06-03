@@ -156,7 +156,7 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bindings@^1.2.1, bindings@^1.3.0:
+bindings@^1.2.1:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.3.0.tgz#b346f6ecf6a95f5a815c5839fc7cdb22502f1ed7"
 
@@ -680,7 +680,7 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
 
-function-bind@^1.0.2:
+function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
 
@@ -746,10 +746,10 @@ has-flag@^3.0.0:
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
 
 has@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/has/-/has-1.0.1.tgz#8461733f538b0837c9361e39a9ab9e9704dc2f28"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/has/-/has-1.0.2.tgz#1a64bfe4b52e67fb87b9822503d97c019fb6ba42"
   dependencies:
-    function-bind "^1.0.2"
+    function-bind "^1.1.1"
 
 hoek@5.x.x:
   version "5.0.3"
@@ -1146,7 +1146,7 @@ mute-stream@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
 
-nan@^2.3.5, nan@^2.9.2:
+nan@^2.3.5:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
 
@@ -1161,12 +1161,11 @@ node-expat@^2.3.15:
     bindings "^1.2.1"
     nan "^2.3.5"
 
-"node-memwathc@https://github.com/airbnb/node-memwatch.git":
-  version "1.0.2"
-  resolved "https://github.com/airbnb/node-memwatch.git#1733e1a05e122ae2d154b27f1b3ef70c749a5758"
+node-kitsu@^2.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/node-kitsu/-/node-kitsu-1.0.1.tgz#625a3840461d0e0b7dd75605901f4434deb6a5c7"
   dependencies:
-    bindings "^1.3.0"
-    nan "^2.9.2"
+    request "^2.79.0"
 
 normalize-package-data@^2.3.2:
   version "2.4.0"
@@ -1409,7 +1408,7 @@ rejects@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/rejects/-/rejects-0.4.1.tgz#af96cf472d53f1bb3848ad5071d5c0764399de1d"
 
-request@latest:
+request@^2.79.0, request@latest:
   version "2.87.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.87.0.tgz#32f00235cd08d482b4d0d68db93a829c0ed5756e"
   dependencies:

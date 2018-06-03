@@ -8,7 +8,7 @@ class CommandHandler extends EventHandler {
     super(client)
 
     this.commandPath = path.join(__dirname, '../commands/')
-    this.prefix = '=='
+    this.prefix = process.env.PREFIX
     this.mentionRegex = new RegExp(`<@${process.env.BOT_ID}>`)
 
     this.commands = new Map()
@@ -33,11 +33,9 @@ class CommandHandler extends EventHandler {
       let command
       if (this.mentionRegex.test(event.content)) { command = event.content.replace(/^[^ ]+ /, '').trim() } else if (event.content.startsWith(this.prefix)) { command = event.content.substring(this.prefix.length).trim() } else { return }
 
-      console.log(command)
       if (!command) { return }
 
       const commandName = command.match(/^[^ ]+/)[0].toLowerCase()
-      console.log(commandName)
 
       let matched = this.commands.get(commandName)
       if (matched) { return matched.run(event, command.substring(commandName.length + 1)) }
