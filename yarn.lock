@@ -156,7 +156,7 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bindings@^1.2.1:
+bindings@^1.2.1, bindings@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.3.0.tgz#b346f6ecf6a95f5a815c5839fc7cdb22502f1ed7"
 
@@ -1146,7 +1146,7 @@ mute-stream@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
 
-nan@^2.3.5:
+nan@^2.3.5, nan@^2.9.2:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
 
@@ -1160,6 +1160,13 @@ node-expat@^2.3.15:
   dependencies:
     bindings "^1.2.1"
     nan "^2.3.5"
+
+"node-memwathc@https://github.com/airbnb/node-memwatch.git":
+  version "1.0.2"
+  resolved "https://github.com/airbnb/node-memwatch.git#1733e1a05e122ae2d154b27f1b3ef70c749a5758"
+  dependencies:
+    bindings "^1.3.0"
+    nan "^2.9.2"
 
 normalize-package-data@^2.3.2:
   version "2.4.0"
