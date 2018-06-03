@@ -37,7 +37,7 @@ class CommandHandler extends EventHandler {
       if (!command) { return }
       const commandName = command.match(/^[^ ]+/)[0].toLowerCase()
       let matched = this.commands.get(commandName)
-      console.log(matched.info)
+      // console.log(matched.info)
       if (matched) { return matched.run(event, command.substring(commandName.length + 1)) }
 
       for (const c of this.commands.values()) {
@@ -57,7 +57,6 @@ class CommandHandler extends EventHandler {
       file = path.join(this.commandPath, file)
       const stats = statSync(file)
       if (path.extname(file) === '.js' && !stats.isDirectory()) {
-        console.log(file)
         const command = new (require(file))(this)
         this.commands.set(command.name, command)
       } else if (stats.isDirectory()) {

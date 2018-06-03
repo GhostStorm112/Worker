@@ -10,7 +10,9 @@ class Help extends Command {
   }
 
   async run (event, args) {
-
+    let author = event.author.id
+    let channel = await this.client.rest.user.createDirectMessageChannel(author)
+    return this.client.rest.channel.createMessage(channel.id, 'hi')
   }
 }
 
