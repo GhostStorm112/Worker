@@ -16,17 +16,15 @@ class Play extends Command {
   }
 
   async run (event, args) {
+    if (!args) return this.client.rest.channel.createMessage(event.channel_id, 'What do you think I am a song tree?')
     args = args.trim()
-
     let data
-    let search = false
-    
+
     try {
       try {
         data = await this.client.lavalink.load(`${args}`)
         if (!data || !data.length) throw new Error()
       } catch (error) {
-        search = true
         data = (await this.client.lavalink.load(`ytsearch:${args}`))
       }
     } catch (error) {

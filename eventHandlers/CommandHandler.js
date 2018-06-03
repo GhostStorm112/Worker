@@ -1,7 +1,8 @@
 const EventHandler = require('../structures/EventHandler')
+const GhostCore = require('Core')
 const promisifyAll = require('tsubaki').promisifyAll
 const { readdirSync, statSync } = promisifyAll(require('fs'))
-
+const log = new GhostCore.Logger()
 const path = require('path')
 
 class CommandHandler extends EventHandler {
@@ -59,6 +60,7 @@ class CommandHandler extends EventHandler {
       if (path.extname(file) === '.js' && !stats.isDirectory()) {
         const command = new (require(file))(this)
         this.commands.set(command.name, command)
+        log.info('Loader', `Registered: ${command.name}`)
       } else if (stats.isDirectory()) {
         this.loadCommandsIn(file)
       }
@@ -72,9 +74,9 @@ class CommandHandler extends EventHandler {
       file = path.join(dir, file)
       const stats = statSync(file)
       if (path.extname(file) === '.js' && !stats.isDirectory()) {
-        console.log(file)
         const command = new (require(file))(this)
         this.commands.set(command.name, command)
+        log.info('Loader', `Registered: ${command.name}`)
       }
     }
   }
