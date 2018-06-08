@@ -13,7 +13,6 @@ class Boob extends Command {
   async run (event, args) {
     const channel = await this.client.rest.channel.getChannel(event.channel_id)
     if (channel.nsfw) {
-      console.log(randomInt)
       axios.get(`http://api.oboobs.ru/boobs/${randomInt(5000)}/1/rank`)
         .then(response => {
           let image = `http://media.oboobs.ru/${response.data[0].preview}`

@@ -10,8 +10,6 @@ class Echo extends Command {
   }
 
   async run (event, args) {
-    console.log(`ECHO -> ${args}`)
-
     args = args.trim()
     return this.client.rest.channel.createMessage(event.channel_id, args || 'echo!')
   }

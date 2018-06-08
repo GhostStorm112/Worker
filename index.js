@@ -15,7 +15,6 @@ async function run () {
   })
 
   wm.on('voiceStateUpdate', data => {
-    console.log(data)
     // wm.shard.sendWS(data.shard_id, 'VOICE_STATE_UPDATE', { guild_id: data.guild_id, channel_id: '268807882059939841', self_mute: false, self_deaf: false })
   })
 }
