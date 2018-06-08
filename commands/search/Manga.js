@@ -1,4 +1,4 @@
-const Command = require('../structures/Command')
+const Command = require('../../structures/Command')
 const kitsu = require('node-kitsu')
 class Manga extends Command {
   get name () {
