@@ -14,11 +14,9 @@ class Queue extends Command {
   async run (event, args) {
     const queue = await this.client.lavalink.queues.get(event.guild_id)
     let tracks = await queue.tracks()
-    console.log(tracks)
-    if (tracks.length === 0) {
-      return this.client.rest.channel.createMessage(event.channel_id, 'The queue is empty :cry:')
-    }
+
     let playing = await queue.current()
+    if (!tracks.length > 0 && !playing) { return this.client.rest.channel.createMessage(event.channel_id, 'The queue is empty :cry:') }
     tracks = [playing.track, ...tracks]
     let data = []
     for (let track of tracks) {
