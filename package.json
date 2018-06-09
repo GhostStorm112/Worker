@@ -27,7 +27,8 @@
 		"cats-js": "^1.0.2",
 		"node-kitsu": "^1.0.1",
 		"common-tags": "^1.8.0",
-		"axios": "^0.18.0"
+		"axios": "^0.18.0",
+		"dblapi.js": "^2.0.1"
 		},
 	"devDependencies": {
 		"eslint": "^4.19.1",

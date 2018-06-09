@@ -3,19 +3,21 @@ const GhostCore = require('Core')
 
 const wm = new WeatherMachine({ camelCaseEvents: true })
 const log = new GhostCore.Logger()
+const DBL = require('dblapi.js')
+const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI3NzAyMDcyNzA0MjExMzUzNiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTI4NTQyMzEyfQ.sBxl-DI1SxpA9t8yCaPCJ5bkNjyc6AeCCXPv1mfBYNk')
 
 async function run () {
   log.info('STARTUP', 'Starting')
   await wm.initialize()
 
   log.info('STARTUP', 'Ready')
-
   wm.on('messageCreate', data => {
     return handleMessage(data)
   })
 
-  wm.on('voiceStateUpdate', data => {
-    // wm.shard.sendWS(data.shard_id, 'VOICE_STATE_UPDATE', { guild_id: data.guild_id, channel_id: '268807882059939841', self_mute: false, self_deaf: false })
+  wm.on('dblu', async data => {
+    log.info('DBL', `Updated Discord Bot List with ${await wm.cache.guild.getIndexCount()}`)
+    dbl.postStats(await wm.cache.guild.getIndexCount(), null, null)
   })
 }
 async function handleMessage (msg) {
