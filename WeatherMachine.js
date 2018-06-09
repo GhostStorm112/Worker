@@ -43,7 +43,7 @@ class WeatherMachine extends EventEmitter {
       redis: this.redis,
       gateway: this.shard
     })
-    
+
     this.shard = new Shard(this)
     this.rest = new SnowTransfer(process.env.TOKEN)
     this.connector = new AmqpConnector(this)
@@ -75,7 +75,7 @@ class WeatherMachine extends EventEmitter {
 
   processEvent (event) {
     if (this.options.disabledEvents && this.options.disabledEvents.has(event.t)) { return null }
-    if(event.d){event.d['shard_id'] = event.shard_id}
+    if (event.d) { event.d['shard_id'] = event.shard_id }
     return this.emit(this.options.camelCaseEvents ? GhostCore.Utils.CamelCaseEventName(event.t) : event.t, event.d)
   }
 }
