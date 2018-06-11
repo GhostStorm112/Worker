@@ -21,7 +21,7 @@ async function run () {
   })
 }
 async function handleMessage (msg) {
-  log.info('Message', `${msg.shard_id}:${msg.guild_id}:${msg.guild_id}:${msg.author.username}#${msg.author.discriminator}: ${msg.content}`)
+  // log.info('Message', `${msg.shard_id}:${msg.guild_id}:${msg.guild_id}:${msg.author.username}#${msg.author.discriminator}: ${msg.content}`)
 }
 
 run().catch(error => log.error('STARTUP', error))
