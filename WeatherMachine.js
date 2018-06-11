@@ -5,6 +5,7 @@ const { default: Cache } = require('@spectacles/cache')
 const EventEmitter = require('eventemitter3')
 const SnowTransfer = require('snowtransfer')
 const GhostCore = require('Core')
+const SettingsManager = require('SettingsManager')
 const Shard = require('./utils/shard')
 const RainCache = require('raincache')
 const AmqpConnector = require('./AqmpConnector')
@@ -17,7 +18,9 @@ class WeatherMachine extends EventEmitter {
     super()
 
     if (options.disabledEvents) { options.disabledEvents = new Set(options.disabledEvents) }
-
+    this.settings = new SettingsManager({
+      dburl: 'mongodb://localhost/tama-development'
+    })
     this.options = Object.assign({
       disabledEvents: null,
       camelCaseEvents: false,
@@ -54,6 +57,7 @@ class WeatherMachine extends EventEmitter {
     await this.cache.initialize()
     await this.connector.initialize()
     await this.loadEventHandlers()
+    await this.settings.init()
 
     this.connector.on('event', event => this.processEvent(event))
   }
