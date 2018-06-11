@@ -11,7 +11,13 @@ class Purge extends Command {
 
   async run (event, args) {
     args = args.trim()
-    let messages = this.client.rest.channel.getChannelMessages(event.channel_id, { limit: 20 })
+
+    const messages = await this.client.rest.channel.getChannelMessages(event.channel_id, { limit: args || 20 })
+    let purge = []
+    for (var message in messages) {
+      purge.push(messages[message].id)
+    }
+    this.client.rest.channel.bulkDeleteMessages(event.channel_id, purge.reverse())
   }
 }
 

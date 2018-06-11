@@ -21,8 +21,7 @@ class ShardS extends Command {
         }
         message.push(`\n\`\`\``)
         console.log(message)
-
-        return this.client.rest.channel.createMessage(event.channel_id, `${message}`)
+        return this.client.rest.channel.createMessage(event.channel_id, message.toString())
       })
   }
 }
