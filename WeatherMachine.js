@@ -53,6 +53,14 @@ class WeatherMachine extends EventEmitter {
     this.rest = new SnowTransfer(process.env.TOKEN)
     this.connector = new AmqpConnector(this)
     this.eventHandlers = new Map()
+
+    this.isOwner = function isOwner (id) {
+      if (id === '167927608191746048') {
+        return true
+      } else {
+        return false
+      }
+    }
   }
 
   async initialize () {

@@ -11,6 +11,7 @@ class ShardS extends Command {
   }
 
   async run (event, args) {
+    if (!this.client.isOwner(event.author.id)) { return }
     let message = []
     message.push(`\`\`\`javascript\n`)
     message.push('==Shards==\n')
