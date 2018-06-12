@@ -8,7 +8,6 @@ const path = require('path')
 class CommandHandler extends EventHandler {
   constructor (client) {
     super(client)
-
     this.commandPath = path.join(__dirname, '../commands/')
     this.prefix = process.env.PREFIX
     this.mentionRegex = new RegExp(`<@${process.env.BOT_ID}>`)
@@ -53,14 +52,12 @@ class CommandHandler extends EventHandler {
 
   async loadCommands () {
     const files = readdirSync(this.commandPath)
-
     for (let file of files) {
       file = path.join(this.commandPath, file)
       const stats = statSync(file)
       if (path.extname(file) === '.js' && !stats.isDirectory()) {
         const command = new (require(file))(this)
         this.commands.set(command.name, command)
-        log.info('Loader', `Registered: ${command.name}`)
       } else if (stats.isDirectory()) {
         this.loadCommandsIn(file)
       }
@@ -69,16 +66,18 @@ class CommandHandler extends EventHandler {
 
   async loadCommandsIn (dir) {
     const files = await readdirSync(dir)
-
     for (let file of files) {
       file = path.join(dir, file)
       const stats = statSync(file)
       if (path.extname(file) === '.js' && !stats.isDirectory()) {
         const command = new (require(file))(this)
         this.commands.set(command.name, command)
-        log.info('Loader', `Registered: ${command.name}`)
       }
     }
+  }
+
+  async loadedCommands () {
+    return this.commands.size
   }
 }
 

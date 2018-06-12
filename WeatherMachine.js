@@ -12,7 +12,7 @@ const AmqpConnector = require('./AqmpConnector')
 const promisifyAll = require('tsubaki').promisifyAll
 const fs = promisifyAll(require('fs'))
 const path = require('path')
-
+const info = require('./package.json')
 class WeatherMachine extends EventEmitter {
   constructor (options = { }) {
     super()
@@ -21,6 +21,8 @@ class WeatherMachine extends EventEmitter {
     this.settings = new SettingsManager({
       dburl: 'mongodb://localhost/tama-development'
     })
+
+    this.log = new GhostCore.Logger()
     this.options = Object.assign({
       disabledEvents: null,
       camelCaseEvents: false,
@@ -46,7 +48,7 @@ class WeatherMachine extends EventEmitter {
       redis: this.redis,
       gateway: this.shard
     })
-
+    this.info = info
     this.shard = new Shard(this)
     this.rest = new SnowTransfer(process.env.TOKEN)
     this.connector = new AmqpConnector(this)
