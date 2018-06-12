@@ -17,7 +17,7 @@ async function run () {
     
     Version: ${wm.info.version} By: ${wm.info.author}
   `)
-  wm.log.info('STARTUP', 'Starting')
+  wm.log.info('Worker', 'Starting')
   await wm.initialize()
 
   log.info('Worker', 'Ready')
