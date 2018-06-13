@@ -19,7 +19,6 @@ async function run () {
   `)
   wm.log.info('Worker', 'Starting')
   await wm.initialize()
-
   log.info('Worker', 'Ready')
   wm.on('messageCreate', data => {
     return handleMessage(data)

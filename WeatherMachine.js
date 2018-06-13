@@ -18,11 +18,11 @@ class WeatherMachine extends EventEmitter {
     super()
 
     if (options.disabledEvents) { options.disabledEvents = new Set(options.disabledEvents) }
+
+    this.log = new GhostCore.Logger()
     this.settings = new SettingsManager({
       dburl: 'mongodb://localhost/tama-development'
     })
-
-    this.log = new GhostCore.Logger()
     this.options = Object.assign({
       disabledEvents: null,
       camelCaseEvents: false,

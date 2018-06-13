@@ -24,8 +24,9 @@
 
 "SettingsManager@https://gitlab.com/GhostStorm/SettingsManager.git":
   version "0.0.2"
-  resolved "https://gitlab.com/GhostStorm/SettingsManager.git#afdda3170634ae107adab32dd0143d30e37ad6b6"
+  resolved "https://gitlab.com/GhostStorm/SettingsManager.git#3eb38f727aef9364a163a6a51ef3d0e4436bb26b"
   dependencies:
+    Core "https://gitlab.com/GhostStorm/Core.git"
     cors "^2.8.4"
     global "^4.3.2"
     mongoose "^5.1.4"
@@ -1156,9 +1157,9 @@ lodash@^4.17.10, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
-logform@^1.4.1, logform@^1.7.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/logform/-/logform-1.8.0.tgz#011e7c04444eb5ee2b0beb47089f6c086368fb66"
+logform@^1.4.1, logform@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/logform/-/logform-1.9.0.tgz#7e02f7d6b7f70dcc8ae56fcd2d060f9547afbac2"
   dependencies:
     colors "^1.2.1"
     fast-safe-stringify "^2.0.4"
@@ -1920,7 +1921,7 @@ winston-transport@^3.1.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/winston-transport/-/winston-transport-3.2.1.tgz#5b79b294096b1a18bfe502e769491553a2cb1042"
 
-winston-transport@^4.0.0:
+winston-transport@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/winston-transport/-/winston-transport-4.2.0.tgz#a20be89edf2ea2ca39ba25f3e50344d73e6520e5"
   dependencies:
@@ -1941,8 +1942,8 @@ winston@3.0.0-rc5:
     winston-transport "^3.1.0"
 
 winston@^2.4.1:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/winston/-/winston-2.4.2.tgz#3ca01f763116fc48db61053b7544e750431f8db0"
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/winston/-/winston-2.4.3.tgz#7a9fdab371b6d3d9b63a592947846d856948c517"
   dependencies:
     async "~1.0.0"
     colors "1.0.x"
@@ -1952,17 +1953,18 @@ winston@^2.4.1:
     stack-trace "0.0.x"
 
 winston@^3.0.0-rc5:
-  version "3.0.0-rc6"
-  resolved "https://registry.yarnpkg.com/winston/-/winston-3.0.0-rc6.tgz#f6a0417be6cc2fe5c9a64fbb698e8da674cdf26a"
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/winston/-/winston-3.0.0.tgz#1f0b24a96586798bcf0cd149fb07ed47cb01a1b2"
   dependencies:
     async "^2.6.0"
     diagnostics "^1.0.1"
     is-stream "^1.1.0"
-    logform "^1.7.0"
+    logform "^1.9.0"
     one-time "0.0.4"
+    readable-stream "^2.3.6"
     stack-trace "0.0.x"
     triple-beam "^1.3.0"
-    winston-transport "^4.0.0"
+    winston-transport "^4.2.0"
 
 wordwrap@~1.0.0:
   version "1.0.0"
