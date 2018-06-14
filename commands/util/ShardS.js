@@ -15,7 +15,7 @@ class ShardS extends Command {
     let message = []
     message.push(`\`\`\`javascript\n`)
     message.push('==Shards==\n')
-    axios.get(`http://${process.env.GW_HOST}:${GW_PORT}/shards/status`)
+    axios.get(`http://${process.env.GW_HOST}:${process.env.GW_PORT}/shards/status`)
       .then(response => {
         for (var shard in response.data.shards) {
           message.push(`Shard-${response.data.shards[shard].id} S: "${response.data.shards[shard].status}" R: "${response.data.shards[shard].seq}"\n`)

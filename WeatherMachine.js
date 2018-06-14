@@ -13,6 +13,7 @@ const promisifyAll = require('tsubaki').promisifyAll
 const fs = promisifyAll(require('fs'))
 const path = require('path')
 const info = require('./package.json')
+
 class WeatherMachine extends EventEmitter {
   constructor (options = { }) {
     super()

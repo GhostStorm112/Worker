@@ -1,9 +1,8 @@
 const EventHandler = require('../structures/EventHandler')
-const GhostCore = require('Core')
 const promisifyAll = require('tsubaki').promisifyAll
 const { readdirSync, statSync } = promisifyAll(require('fs'))
-const log = new GhostCore.Logger()
 const path = require('path')
+const StatsD = require('hot-shots')
 
 class CommandHandler extends EventHandler {
   constructor (client) {
@@ -24,6 +23,15 @@ class CommandHandler extends EventHandler {
   }
 
   async init () {
+    // Setup StatsD
+    if (process.env.STATSD) {
+      this.statsClient = new StatsD({
+        host: process.env.STATSD_HOST,
+        port: process.env.STATSD_PORT,
+        prefix: process.env.STATSDW_PREFIX,
+        telegraf: true
+      })
+    }
     return this.loadCommands()
   }
 
@@ -38,10 +46,29 @@ class CommandHandler extends EventHandler {
       const commandName = command.match(/^[^ ]+/)[0].toLowerCase()
       let matched = this.commands.get(commandName)
 
-      if (matched) { return matched.run(event, command.substring(commandName.length + 1)) }
+      if (matched) {
+        console.log(commandName)
+        if (this.statsClient) {
+          this.statsClient.increment('workercommand', 1, 1, [`command:${commandName}`], (err) => {
+            if (err) {
+              console.log(err)
+            }
+          })
+        }
+        return matched.run(event, command.substring(commandName.length + 1))
+      }
 
       for (const c of this.commands.values()) {
-        if (c.aliases && c.aliases.includes(commandName)) { return c.run(event, command.substring(commandName.length + 1)) }
+        if (c.aliases && c.aliases.includes(commandName)) {
+          if (this.statsClient) {
+            this.statsClient.increment('workercommand', 1, 1, [`command:${commandName}`], (err) => {
+              if (err) {
+                console.log(err)
+              }
+            })
+          }
+          return c.run(event, command.substring(commandName.length + 1))
+        }
       }
 
       return
