@@ -1,4 +1,5 @@
-FROM node:10-alpine
+FROM node:10.4.1-alpine
+LABEL name "Ghost-Worker"
 LABEL maintainer "_112"
 COPY ./ /app
 # Add package.json for Yarn
@@ -16,7 +17,3 @@ RUN apk add --update \
 # Clean up build dependencies
 && apk del .build-deps
 CMD ["node", "./index.js"]
-
-
-
-
