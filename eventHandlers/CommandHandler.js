@@ -47,7 +47,6 @@ class CommandHandler extends EventHandler {
       let matched = this.commands.get(commandName)
 
       if (matched) {
-        console.log(commandName)
         if (this.statsClient) {
           this.statsClient.increment('workercommand', 1, 1, [`command:${commandName}`], (err) => {
             if (err) {
