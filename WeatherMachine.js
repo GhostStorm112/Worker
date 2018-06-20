@@ -42,7 +42,7 @@ class WeatherMachine extends EventEmitter {
     })
 
     this.lavalink = new GhostCore.LavalinkWorker({
-      user: process.env.BOT_ID || '326603853736837121',
+      user: process.env.BOT_ID,
       password: process.env.LAVALINK_PASSWORD,
       rest: process.env.LAVALINK_REST,
       ws: process.env.LAVALINK_WS,
@@ -56,7 +56,7 @@ class WeatherMachine extends EventEmitter {
     this.eventHandlers = new Map()
 
     this.isOwner = function isOwner (id) {
-      if (id === process.env.OWNERID || '167927608191746048') {
+      if (id === process.env.OWNERID) {
         return true
       } else {
         return false
