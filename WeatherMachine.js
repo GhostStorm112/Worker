@@ -22,7 +22,7 @@ class WeatherMachine extends EventEmitter {
 
     this.log = new GhostCore.Logger()
     this.settings = new SettingsManager({
-      dburl: 'mongodb://localhost/tama-development'
+      dburl: process.env.MONGO_URL
     })
     this.options = Object.assign({
       disabledEvents: null,
