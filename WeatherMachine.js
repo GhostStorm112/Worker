@@ -56,7 +56,7 @@ class WeatherMachine extends EventEmitter {
     this.eventHandlers = new Map()
 
     this.isOwner = function isOwner (id) {
-      if (id === process.env.OWNERID) {
+      if (id === process.env.OWNER_ID) {
         return true
       } else {
         return false
