@@ -24,7 +24,7 @@ async function run () {
     return handleMessage(data)
   })
 
-  wm.on('dblu', async data => {
+  wm.on('dblu', async () => {
     wm.log.info('DBL', `Updated Discord Bot List with ${await wm.cache.guild.getIndexCount()}`)
     dbl.postStats(await wm.cache.guild.getIndexCount(), null, null)
   })
