@@ -10,16 +10,19 @@ class Purge extends Command {
   }
 
   async run (event, args) {
-    if (!this.client.isOwner(event.author.id)) { return }
-
     args = args.trim()
 
-    const messages = await this.client.rest.channel.getChannelMessages(event.channel_id, { limit: args || 2 })
-    let purge = []
-    for (var message in messages) {
-      purge.push(messages[message].id)
+    if (!this.client.isOwner(event.author.id)) { return }
+    if (isNaN(args) || !args) {
+      this.client.rest.channel.createMessage(event.channel_id, 'You need to specify a number > 2')
+    } else {
+      const messages = await this.client.rest.channel.getChannelMessages(event.channel_id, { limit: args })
+      let purge = []
+      for (var message in messages) {
+        purge.push(messages[message].id)
+      }
+      this.client.rest.channel.bulkDeleteMessages(event.channel_id, purge.reverse())
     }
-    this.client.rest.channel.bulkDeleteMessages(event.channel_id, purge.reverse())
   }
 }
 
