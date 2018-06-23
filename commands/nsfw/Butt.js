@@ -7,7 +7,7 @@ class Butt extends Command {
   }
 
   get aliases () {
-    return ['butt']
+    return ['ass']
   }
 
   async run (event, args) {

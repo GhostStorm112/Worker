@@ -7,7 +7,7 @@ class Boob extends Command {
   }
 
   get aliases () {
-    return ['boobies', 'boob']
+    return ['boobies', 'tit']
   }
 
   async run (event, args) {
