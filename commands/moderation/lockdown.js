@@ -20,7 +20,11 @@ class Lockdown extends Command {
         }
       }
 
-      await this.client.rest.channel.updateChannel(event.channel_id, updatedata)
+      await this.client.rest.channel.editChannelPermission(event.channel_id, 'SEND_MESSAGES', {
+        allow: 0,
+        deny: 1,
+        type: event.author.id
+      })
       return this.client.rest.channel.createMessage(event.channel_id, 'Lockdown started')
     } else if (type === 'stop') {
 
