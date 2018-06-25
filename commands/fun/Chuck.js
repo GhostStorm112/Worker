@@ -12,7 +12,7 @@ class Chuck extends Command {
   async run (event, args) {
     axios.get('http://api.icndb.com/jokes/random')
       .then(response => {
-        return this.client.rest.channel.createMessage(event.channel_id, args || {
+        return this.client.rest.channel.createMessage(event.channel_id, {
           embed: {
             author: {
               name: `${event.author.username}#${event.author.discriminator} (${event.author.id})`,

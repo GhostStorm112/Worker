@@ -17,7 +17,7 @@ class Echo extends Command {
     kitty = await c.get()
     image = await kitty.images.image.url
     if (image) {
-      return this.client.rest.channel.createMessage(event.channel_id, args || {
+      return this.client.rest.channel.createMessage(event.channel_id, {
         embed: {
           author: {
             name: `${event.author.username}#${event.author.discriminator} (${event.author.id})`,
