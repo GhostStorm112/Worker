@@ -35,7 +35,7 @@ class CommandHandler extends EventHandler {
     return this.loadCommands()
   }
 
-  handle (event) {
+  async handle (event) {
     try {
       if (event.author.bot || event.author.id === process.env.BOT_ID) { return }
 
@@ -46,6 +46,8 @@ class CommandHandler extends EventHandler {
       const commandName = command.match(/^[^ ]+/)[0].toLowerCase()
       let matched = this.commands.get(commandName)
 
+      let setting = await this.client.settings.getSetting('blacklist', event.guild_id)
+      if (Object.values(setting.data).indexOf(event.author.id) > -1) { return }
       if (matched) {
         if (this.statsClient) {
           this.statsClient.increment('workercommand', 1, 1, [`command:${commandName}`], (err) => {

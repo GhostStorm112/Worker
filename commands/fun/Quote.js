@@ -1,6 +1,5 @@
 const Command = require('../../structures/Command')
 const axios = require('axios')
-const util = require('util')
 
 class Illegal extends Command {
   get name () {
