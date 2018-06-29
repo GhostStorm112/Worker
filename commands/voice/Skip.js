@@ -9,6 +9,10 @@ class Skip extends Command {
     return ['sk']
   }
 
+  get help () {
+    return `Skips to next song`
+  }
+
   async run (event, args) {
     this.client.shard.sendWS(0, 'LAVALINK', {action: 'SKIP', guild_id: event.guild_id})
     return this.client.rest.channel.createMessage(event.channel_id, 'Skipping song')

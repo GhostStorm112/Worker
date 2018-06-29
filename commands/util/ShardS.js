@@ -10,6 +10,10 @@ class ShardS extends Command {
     return ['shardss']
   }
 
+  get help () {
+    return `Returns shard info`
+  }
+
   async run (event, args) {
     if (!this.client.isOwner(event.author.id)) { return }
     let message = []

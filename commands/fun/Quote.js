@@ -10,6 +10,10 @@ class Illegal extends Command {
     return ['ini']
   }
 
+  get help () {
+    return `Is now illegal image generator`
+  }
+
   async run (event, args) {
     args = args.trim()
 

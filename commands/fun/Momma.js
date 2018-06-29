@@ -9,6 +9,10 @@ class Momma extends Command {
     return ['yomom']
   }
 
+  get help () {
+    return `Returns a Yomomma joke`
+  }
+
   async run (event, args) {
     axios.get('http://api.yomomma.info')
       .then(response => {

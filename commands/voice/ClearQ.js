@@ -9,6 +9,10 @@ class Echo extends Command {
     return ['say']
   }
 
+  get help () {
+    return `Clears the music queue`
+  }
+
   async run (event, args) {
     args = args.trim()
     return this.client.rest.channel.createMessage(event.channel_id, args || 'echo!')

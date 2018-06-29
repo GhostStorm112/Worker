@@ -1,7 +1,7 @@
 const WeatherMachine = require('./WeatherMachine')
 const wm = new WeatherMachine({ camelCaseEvents: true })
 const DBL = require('dblapi.js')
-const dbl = new DBL(process.ENV.DBL_TOKEN)
+const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI3NzAyMDcyNzA0MjExMzUzNiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE4NTIzODk4fQ.q0iGYkuVAWiG8ZVVqQ60YSi2KR0jbqZBrqxzFEASipQ')
 
 async function run () {
   wm.log.info('Worker', `
@@ -30,4 +30,4 @@ async function run () {
    wm.log.info('Message', `${msg.shard_id}:${msg.guild_id}:${msg.guild_id}:${msg.author.username}#${msg.author.discriminator}: ${msg.content}`)
 } */
 
-run().catch(error => wm.log.error('STARTUP', error))
+run().catch(error => console.log(error))

@@ -11,6 +11,10 @@ class Queue extends Command {
     return ['queue']
   }
 
+  get help () {
+    return `Returns the music queue`
+  }
+
   async run (event, args) {
     const queue = await this.client.lavalink.queues.get(event.guild_id)
     let tracks = await queue.tracks()

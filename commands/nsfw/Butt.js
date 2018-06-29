@@ -10,6 +10,10 @@ class Butt extends Command {
     return ['ass']
   }
 
+  get help () {
+    return `Returns a ass image`
+  }
+
   async run (event, args) {
     const channel = await this.client.rest.channel.getChannel(event.channel_id)
     if (channel.nsfw) {

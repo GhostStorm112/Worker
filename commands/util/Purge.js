@@ -9,6 +9,10 @@ class Purge extends Command {
     return ['clear']
   }
 
+  get help () {
+    return `Purges channel messages || ==purge <>2>`
+  }
+
   async run (event, args) {
     args = args.trim()
 

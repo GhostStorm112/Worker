@@ -9,6 +9,10 @@ class Blacklist extends Command {
     return ['bl']
   }
 
+  get help () {
+    return `Blacklists a user from using the bot`
+  }
+
   async run (event, args) {
     if (!this.client.isOwner(event.author.id)) { return }
     let user = args.replace(/[<>@addremove ]/g, '')

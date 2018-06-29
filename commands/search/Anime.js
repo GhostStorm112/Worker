@@ -9,13 +9,17 @@ class Anime extends Command {
     return ['an']
   }
 
+  get help () {
+    return `Returns info on a anime ==anime <anime>`
+  }
+
   async run (event, args) {
     kitsu.searchAnime(args, 0)
       .then(result => {
         if (result.length === 0) {
           return this.client.rest.channel.createMessage(event.channe_id, `No results found for: **${args}**`)
         }
-        
+
         const anime = result[0]
         const url = `https://kitsu.io/anime/${anime.attributes.slug}`
 

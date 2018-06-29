@@ -9,6 +9,10 @@ class Leave extends Command {
     return ['le']
   }
 
+  get help () {
+    return `Leaves a voice channel`
+  }
+
   async run (event, args) {
     this.client.shard.sendWS(event.shard_id, 'LAVALINK', {
       action: 'LEAVE',

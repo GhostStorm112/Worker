@@ -9,6 +9,10 @@ class Chuck extends Command {
     return ['chucknorris']
   }
 
+  get help () {
+    return `Returns a chuck norrris qutoe`
+  }
+
   async run (event, args) {
     axios.get('http://api.icndb.com/jokes/random')
       .then(response => {

@@ -11,11 +11,7 @@ class Command {
   get name () {
     throw new Error('name not set')
   }
-
-  get info () {
-    throw new Error('info not set')
-  }
-  get usage () {
+  get help () {
     throw new Error('usage not set')
   }
 
@@ -23,9 +19,10 @@ class Command {
   * Function that executes the command according to the passed arguments
   * @param {Object} event The raw event
   * @param {String} [args] The arguments specified by the user
+  * @param {Map} map
   * @abstract
   */
-  run (event, args) { } // eslint-disable-line no-unused-vars
+  run (event, args, map) { } // eslint-disable-line no-unused-vars
 }
 
 module.exports = Command

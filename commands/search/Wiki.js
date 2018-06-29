@@ -9,6 +9,10 @@ class Wiki extends Command {
     return ['wikidiki']
   }
 
+  get help () {
+    return `Returns a wiki search result || ==wiki <search>`
+  }
+
   async run (event, args) {
     args = args.trim()
     const query = args

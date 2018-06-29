@@ -12,6 +12,8 @@ class CommandHandler extends EventHandler {
     this.mentionRegex = new RegExp(`<@${process.env.BOT_ID}>`)
 
     this.commands = new Map()
+    this.help = new Map()
+    this.groups = new Map()
   }
 
   get name () {
@@ -37,6 +39,7 @@ class CommandHandler extends EventHandler {
 
   async handle (event) {
     try {
+      console.time('Command execution')
       if (event.author.bot || event.author.id === process.env.BOT_ID) { return }
 
       let command
@@ -44,10 +47,13 @@ class CommandHandler extends EventHandler {
 
       if (!command) { return }
       const commandName = command.match(/^[^ ]+/)[0].toLowerCase()
+      if (commandName === 'help') { return this.sendCHelp(event, command.substring(commandName.length + 1)) }
       let matched = this.commands.get(commandName)
 
       let setting = await this.client.settings.getSetting('blacklist', event.guild_id)
-      if (Object.values(setting.data).indexOf(event.author.id) > -1) { return }
+      if (setting != null) {
+        if (Object.values(setting.data).indexOf(event.author.id) > -1) { return }
+      }
       if (matched) {
         if (this.statsClient) {
           this.statsClient.increment('workercommand', 1, 1, [`command:${commandName}`], (err) => {
@@ -56,6 +62,7 @@ class CommandHandler extends EventHandler {
             }
           })
         }
+        console.timeEnd('Command execution')
         return matched.run(event, command.substring(commandName.length + 1))
       }
 
@@ -68,6 +75,7 @@ class CommandHandler extends EventHandler {
               }
             })
           }
+          console.timeEnd('Command execution')
           return c.run(event, command.substring(commandName.length + 1))
         }
       }
@@ -77,7 +85,17 @@ class CommandHandler extends EventHandler {
       console.error(error)
     }
   }
-
+  async sendCHelp (event, command) {
+    if (command) {
+      if (this.help.get(command.toLowerCase())) {
+        return this.client.rest.channel.createMessage(event.channel_id, `Command usage: ${this.help.get(command.toLowerCase())}`)
+      } else {
+        return this.client.rest.channel.createMessage(event.channel_id, `Hmm... I don't know that command`)
+      }
+    } else {
+      this.commands.get('help').run(event, '', this.groups)
+    }
+  }
   async loadCommands () {
     const files = readdirSync(this.commandPath)
     for (let file of files) {
@@ -85,7 +103,9 @@ class CommandHandler extends EventHandler {
       const stats = statSync(file)
       if (path.extname(file) === '.js' && !stats.isDirectory()) {
         const command = new (require(file))(this)
+        this.groups.set(command.name, path.dirname(file).split(path.sep).pop())
         this.commands.set(command.name, command)
+        this.help.set(command.name, command.usage)
       } else if (stats.isDirectory()) {
         this.loadCommandsIn(file)
       }
@@ -99,7 +119,9 @@ class CommandHandler extends EventHandler {
       const stats = statSync(file)
       if (path.extname(file) === '.js' && !stats.isDirectory()) {
         const command = new (require(file))(this)
+        this.groups.set(command.name, path.dirname(file).split(path.sep).pop())
         this.commands.set(command.name, command)
+        this.help.set(command.name, command.help)
       }
     }
   }

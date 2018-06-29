@@ -9,6 +9,10 @@ class Lockdown extends Command {
     return ['ld']
   }
 
+  get help () {
+    return `Locks a channel to only allow a specific role to talk`
+  }
+
   async run (event, args) {
     args = args.trim()
     const { type } = args

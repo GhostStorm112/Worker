@@ -9,6 +9,10 @@ class Test extends Command {
     return ['say']
   }
 
+  get help () {
+    return `Test command`
+  }
+
   async run (event, args) {
     if (!this.client.isOwner(event.author.id)) { return }
 

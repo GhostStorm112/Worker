@@ -15,6 +15,10 @@ class Play extends Command {
     return ['test']
   }
 
+  get help () {
+    return `Plays a song || ==play <song>`
+  }
+
   async run (event, args) {
     if (!args) return this.client.rest.channel.createMessage(event.channel_id, 'What do you think I am a song tree?')
     args = args.trim()

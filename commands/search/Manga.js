@@ -9,6 +9,10 @@ class Manga extends Command {
     return ['man']
   }
 
+  get help () {
+    return `Returns info on a manga ==manga <manga>`
+  }
+
   async run (event, args) {
     kitsu.searchManga(args, 0)
       .then(result => {

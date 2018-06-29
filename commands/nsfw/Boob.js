@@ -10,6 +10,10 @@ class Boob extends Command {
     return ['boobies', 'tit']
   }
 
+  get help () {
+    return `Returns a boob image`
+  }
+
   async run (event, args) {
     const channel = await this.client.rest.channel.getChannel(event.channel_id)
     if (channel.nsfw) {
