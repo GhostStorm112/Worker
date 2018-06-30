@@ -12,6 +12,7 @@ class CommandHandler extends EventHandler {
     this.mentionRegex = new RegExp(`<@${process.env.BOT_ID}>`)
 
     this.commands = new Map()
+    this.help = new Map()
   }
 
   get name () {
@@ -37,6 +38,8 @@ class CommandHandler extends EventHandler {
 
   async handle (event) {
     try {
+      console.time('command')
+
       if (event.author.bot || event.author.id === process.env.BOT_ID) { return }
 
       let command
@@ -45,7 +48,6 @@ class CommandHandler extends EventHandler {
       if (!command) { return }
       const commandName = command.match(/^[^ ]+/)[0].toLowerCase()
       let matched = this.commands.get(commandName)
-
       let setting = await this.client.settings.getSetting('blacklist', event.guild_id)
       if (setting != null) {
         if (Object.values(setting.data).indexOf(event.author.id) > -1) { return }
@@ -58,7 +60,18 @@ class CommandHandler extends EventHandler {
             }
           })
         }
-        return matched.run(event, command.substring(commandName.length + 1))
+        if (commandName === 'help' && command.substring(commandName.length + 1)) {
+          if (this.commands.get(command.substring(commandName.length + 1))) {
+            console.timeEnd('command')
+            return this.client.rest.channel.createMessage(event.channel_id, `Usage: \`\`${this.commands.get(command.substring(commandName.length + 1)).usage}\`\``)
+          } else {
+            console.timeEnd('command')
+            return this.client.rest.channel.createMessage(event.channel_id, 'Unknown command or no usage help is set for that command')
+          }
+        } else {
+          console.timeEnd('command')
+          return matched.run(event, command.substring(commandName.length + 1))
+        }
       }
 
       for (const c of this.commands.values()) {

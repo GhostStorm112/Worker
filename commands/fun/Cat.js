@@ -10,6 +10,10 @@ class Echo extends Command {
     return ['cc']
   }
 
+  get usage () {
+    return 'cat'
+  }
+
   async run (event, args) {
     let kitty
     let image

@@ -11,10 +11,6 @@ class Command {
   get name () {
     throw new Error('name not set')
   }
-
-  get info () {
-    throw new Error('info not set')
-  }
   get usage () {
     throw new Error('usage not set')
   }

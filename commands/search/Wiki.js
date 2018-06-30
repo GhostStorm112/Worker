@@ -27,6 +27,7 @@ class Wiki extends Command {
     paragraphs.length = Math.min(2, paragraphs.length)
     return this.client.rest.channel.createMessage(event.channel_id, {
       embed: {
+        color: 0xff0000,
         title: page.raw.title,
         url,
         author: {
