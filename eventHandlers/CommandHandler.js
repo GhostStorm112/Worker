@@ -66,7 +66,7 @@ class CommandHandler extends EventHandler {
             return this.client.rest.channel.createMessage(event.channel_id, `Usage: \`\`${this.commands.get(command.substring(commandName.length + 1)).usage}\`\``)
           } else {
             console.timeEnd('command')
-            return this.client.rest.channel.createMessage(event.channel_id, 'Unknown command or no usage help is set for that command')
+            return this.client.rest.channel.createMessage(event.channel_id, 'Unknown command')
           }
         } else {
           console.timeEnd('command')

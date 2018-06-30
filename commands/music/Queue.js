@@ -18,6 +18,10 @@ class Queue extends Command {
     let playing = await queue.current()
     if (!tracks.length > 0 && !playing) { return this.client.rest.channel.createMessage(event.channel_id, 'The queue is empty :cry:') }
     tracks = [playing.track, ...tracks]
+
+    if ((!playing && !tracks) || (!playing.lenght && !tracks.length)) {
+      return this.client.rest.channel.createMessage(event.channel_id, 'Can\'t show you what I don\'t have.')
+    }
     let data = []
     for (let track of tracks) {
       data.push(await this.client.lavalink.decode(track))
@@ -42,7 +46,7 @@ class Queue extends Command {
 
                 **Total queue time:** ${this.timeString(totalLength)}
             `,
-        footer: paginated.maxPage > 1 ? { text: 'Use darling queue <page> to view a specific page.' } : undefined
+        footer: paginated.maxPage > 1 ? { text: 'Use ghost queue <page> to view a specific page.' } : undefined
       }
     })
   }
