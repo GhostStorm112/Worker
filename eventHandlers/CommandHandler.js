@@ -47,7 +47,9 @@ class CommandHandler extends EventHandler {
       let matched = this.commands.get(commandName)
 
       let setting = await this.client.settings.getSetting('blacklist', event.guild_id)
-      if (Object.values(setting.data).indexOf(event.author.id) > -1) { return }
+      if (setting != null) {
+        if (Object.values(setting.data).indexOf(event.author.id) > -1) { return }
+      }
       if (matched) {
         if (this.statsClient) {
           this.statsClient.increment('workercommand', 1, 1, [`command:${commandName}`], (err) => {
