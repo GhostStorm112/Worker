@@ -7,7 +7,7 @@ const SnowTransfer = require('snowtransfer')
 const GhostCore = require('Core')
 const SettingsManager = require('SettingsManager')
 const Shard = require('./utils/shard')
-const RainCache = require('raincache')
+// const RainCache = require('raincache')
 const AmqpConnector = require('./AqmpConnector')
 const promisifyAll = require('tsubaki').promisifyAll
 const fs = promisifyAll(require('fs'))
@@ -17,8 +17,6 @@ const info = require('./package.json')
 class WeatherMachine extends EventEmitter {
   constructor (options = { }) {
     super()
-
-    if (options.disabledEvents) { options.disabledEvents = new Set(options.disabledEvents) }
 
     this.log = new GhostCore.Logger()
     this.settings = new SettingsManager({
@@ -30,10 +28,10 @@ class WeatherMachine extends EventEmitter {
       eventPath: path.join(__dirname, './eventHandlers/')
     }, options)
 
-    this.cache = new RainCache({
+    /*   this.cache = new RainCache({
       storage: { default: new RainCache.Engines.RedisStorageEngine({ host: process.env.REDIS_URL || 'redis_db', password: process.env.REDIS_PASS }) },
       debug: false
-    })
+    }) */
 
     this.redis = new Cache({
       port: 6379,
@@ -41,6 +39,11 @@ class WeatherMachine extends EventEmitter {
       db: 2
     })
 
+    this.cache = new Cache({
+      port: 6379,
+      host: process.env.REDIS_URL,
+      db: 3
+    })
     this.lavalink = new GhostCore.LavalinkWorker({
       user: process.env.BOT_ID,
       password: process.env.LAVALINK_PASSWORD,
@@ -65,7 +68,7 @@ class WeatherMachine extends EventEmitter {
   }
 
   async initialize () {
-    await this.cache.initialize()
+    // await this.cache.initialize()
     await this.connector.initialize()
     await this.loadEventHandlers()
     await this.settings.init()
@@ -89,7 +92,6 @@ class WeatherMachine extends EventEmitter {
   }
 
   processEvent (event) {
-    if (this.options.disabledEvents && this.options.disabledEvents.has(event.t)) { return null }
     if (event.d) { event.d['shard_id'] = event.shard_id }
     return this.emit(this.options.camelCaseEvents ? GhostCore.Utils.CamelCaseEventName(event.t) : event.t, event.d)
   }

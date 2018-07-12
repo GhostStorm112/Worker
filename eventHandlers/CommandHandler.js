@@ -60,6 +60,9 @@ class CommandHandler extends EventHandler {
             }
           })
         }
+        if (commandName === 'reload') {
+          return this.loadCommands()
+        }
         if (commandName === 'help' && command.substring(commandName.length + 1)) {
           if (this.commands.get(command.substring(commandName.length + 1))) {
             console.timeEnd('command')
