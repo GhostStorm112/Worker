@@ -48,7 +48,6 @@ class Play extends Command {
     } catch (error) {
       return this.client.rest.createMessage(event.channel_id, 'What ever you did it didn\'t work')
     }
-    console.log(userVoiceChannel)
     this.client.shard.sendWS(event.shard_id, 'VOICE_STATE_UPDATE', { shard_id: event.shard_id, guild_id: event.guild_id, channel_id: userVoiceChannel.channel_id, self_mute: false, self_deaf: false })
     this.client.shard.sendWS(event.shard_id, 'LAVALINK', {action: 'PLAY', guild_id: event.guild_id, song: data[0].track})
 
