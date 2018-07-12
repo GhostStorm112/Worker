@@ -848,6 +848,19 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
+ghost-worker@../libs/ghost-worker:
+  version "0.0.1"
+  dependencies:
+    "@spectacles/cache" "0.3.12"
+    Core "https://gitlab.com/GhostStorm/Core.git"
+    SettingsManager "https://gitlab.com/GhostStorm/SettingsManager.git"
+    amqplib "^0.5.2"
+    bluebird "^3.5.1"
+    eventemitter3 "^3.1.0"
+    ghost-core "https://gitlab.com/GhostStorm/Core.git"
+    snowtransfer "^0.2.4"
+    tsubaki "^1.3.0"
+
 glob@^7.0.3, glob@^7.0.5, glob@^7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"

@@ -10,6 +10,7 @@
 		"test": "eslint ."
 	},
 	"dependencies": {
+		"ghost-worker": "../libs/ghost-worker",
 		"@spectacles/cache": "0.3.12",
 		"Core": "https://gitlab.com/GhostStorm/Core.git",
 		"SettingsManager": "https://gitlab.com/GhostStorm/SettingsManager.git",
