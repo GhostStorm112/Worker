@@ -53,13 +53,13 @@ class CommandHandler extends EventHandler {
         if (Object.values(setting.data).indexOf(event.author.id) > -1) { return }
       }
       if (matched) {
-        if (this.statsClient) {
+        /*         if (this.statsClient) {
           this.statsClient.increment('workercommand', 1, 1, [`command:${commandName}`], (err) => {
             if (err) {
               console.log(err)
             }
           })
-        }
+        } */
         if (commandName === 'reload') {
           return this.loadCommands()
         }
