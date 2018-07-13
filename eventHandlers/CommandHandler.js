@@ -38,6 +38,7 @@ class CommandHandler extends EventHandler {
 
   async handle (event) {
     try {
+      console.log(`Running ${event} `)
       console.time('command')
 
       if (event.author.bot || event.author.id === process.env.BOT_ID) { return }

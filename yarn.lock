@@ -848,8 +848,9 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-ghost-worker@../libs/ghost-worker:
+"ghost-worker@https://gitlab.com/GhostStorm/ghost-worker.git":
   version "0.0.1"
+  resolved "https://gitlab.com/GhostStorm/ghost-worker.git#b529ddd3da6f651f4704031724c6da2935c78691"
   dependencies:
     "@spectacles/cache" "0.3.12"
     Core "https://gitlab.com/GhostStorm/Core.git"
