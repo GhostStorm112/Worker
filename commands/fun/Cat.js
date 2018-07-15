@@ -15,6 +15,8 @@ class Echo extends Command {
   }
 
   async run (event, args) {
+    this.client.rest.channel.startChannelTyping(event.channel_id)
+
     let kitty
     let image
     const c = new Cats('MzIwMTI5')

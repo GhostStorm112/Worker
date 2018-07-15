@@ -10,6 +10,8 @@ class Momma extends Command {
   }
 
   async run (event, args) {
+    this.client.rest.channel.startChannelTyping(event.channel_id)
+
     axios.get('http://api.yomomma.info')
       .then(response => {
         return this.client.rest.channel.createMessage(event.channel_id, {

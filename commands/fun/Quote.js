@@ -1,16 +1,18 @@
 const Command = require('../../structures/Command')
 const axios = require('axios')
 
-class Illegal extends Command {
+class Quote extends Command {
   get name () {
-    return 'isnowillegal'
+    return 'quote'
   }
 
   get aliases () {
-    return ['ini']
+    return ['quote']
   }
 
   async run (event, args) {
+    this.client.rest.channel.startChannelTyping(event.channel_id)
+
     args = args.trim()
 
     var config = {
@@ -27,4 +29,4 @@ class Illegal extends Command {
     })
   }
 }
-module.exports = Illegal
+module.exports = Quote

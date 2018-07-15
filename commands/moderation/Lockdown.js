@@ -12,15 +12,14 @@ class Lockdown extends Command {
   async run (event, args) {
     args = args.trim()
     const { type } = args
-
+    const roles = await this.client.rest.guild.getGuildRoles(event.guild_id)
     if (args === 'start') {
       let updatedata = {
-        permission_overwrites: {
-          SEND_MESSAGE: false
-        }
+        SEND_MESSAGES: false,
+        VIEW_CHANNEL: false
       }
 
-      await this.client.rest.channel.editChannelPermission(event.channel_id, 'SEND_MESSAGES', updatedata)
+      await this.client.rest.channel.editChannelPermission(event.channel_id, roles[1].id, updatedata)
       return this.client.rest.channel.createMessage(event.channel_id, 'Lockdown started')
     } else if (type === 'stop') {
 

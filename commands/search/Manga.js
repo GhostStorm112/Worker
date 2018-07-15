@@ -10,6 +10,7 @@ class Manga extends Command {
   }
 
   async run (event, args) {
+    this.client.rest.channel.startChannelTyping(event.channel_id)
     kitsu.searchManga(args, 0)
       .then(result => {
         if (result.length === 0) {

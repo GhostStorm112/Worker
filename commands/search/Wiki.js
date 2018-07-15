@@ -10,6 +10,7 @@ class Wiki extends Command {
   }
 
   async run (event, args) {
+    this.client.rest.channel.startChannelTyping(event.channel_id)
     args = args.trim()
     const query = args
     if (!query) {

@@ -10,12 +10,13 @@ class Anime extends Command {
   }
 
   async run (event, args) {
+    this.client.rest.channel.startChannelTyping(event.channel_id)
     kitsu.searchAnime(args, 0)
       .then(result => {
         if (result.length === 0) {
           return this.client.rest.channel.createMessage(event.channe_id, `No results found for: **${args}**`)
         }
-        
+
         const anime = result[0]
         const url = `https://kitsu.io/anime/${anime.attributes.slug}`
 
