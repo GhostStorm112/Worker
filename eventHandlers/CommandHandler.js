@@ -20,7 +20,7 @@ class CommandHandler extends EventHandler {
   }
 
   get canHandle () {
-    return ['messageCreate']
+    return ['MESSAGE_CREATE']
   }
 
   async init () {
