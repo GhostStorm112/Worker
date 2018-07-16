@@ -44,6 +44,8 @@ class Play extends Command {
         if (!data || !data.length) throw new Error()
       } catch (error) {
         data = (await this.client.lavalink.load(`ytsearch:${args}`))
+        console.log(data)
+        if (!data || !data.length) throw new Error()
       }
     } catch (error) {
       return this.client.rest.createMessage(event.channel_id, 'What ever you did it didn\'t work')

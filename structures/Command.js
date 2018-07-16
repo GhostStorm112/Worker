@@ -6,6 +6,7 @@
 class Command {
   constructor (handler) {
     Object.defineProperty(this, 'client', { value: handler.client })
+
   }
 
   get name () {
@@ -21,7 +22,7 @@ class Command {
   * @param {String} [args] The arguments specified by the user
   * @abstract
   */
-  run (event, args) { } // eslint-disable-line no-unused-vars
+  run (event, args, info) { } // eslint-disable-line no-unused-vars
 }
 
 module.exports = Command
