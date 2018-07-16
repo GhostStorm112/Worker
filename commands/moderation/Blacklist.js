@@ -15,6 +15,7 @@ class Blacklist extends Command {
     let action = args.replace(/[<>@ 0-9]/g, '')
 
     let setting = await this.client.settings.getSetting('blacklist', event.guild_id)
+    console.log(setting.data.includes(user))
 
     if (action === 'add') {
       if (!setting) {
@@ -22,12 +23,17 @@ class Blacklist extends Command {
         return this.client.rest.channel.createMessage(event.channel_id, `Blacklisted: <@${user}>`)
       } else {
         let users = setting.data
+        if (setting.data.includes(user)) { return this.client.rest.channel.createMessage(event.channel_id, `User is already blacklisted!`) }
         users.push(user)
-        if (Object.values(users).indexOf(user) > -1) { return this.client.rest.channel.createMessage(event.channel_id, `User is already blacklisted!`) }
         this.client.settings.updateSetting('blacklist', event.guild_id, users)
         return this.client.rest.channel.createMessage(event.channel_id, `Blacklisted: <@${user}>`)
       }
     } else if (action === 'remove') {
+      let users = setting.data
+      if (setting.data.includes(user)) {
+        users.splice(setting.data.indexOf(event.author.id), 1)
+        this.client.settings.updateSetting('blacklist', event.guild_id, users)
+      }
       return this.client.rest.channel.createMessage(event.channel_id, `Removed: <@${user}> from the blacklist`)
     } else {
       return this.client.rest.channel.createMessage(event.channel_id, 'Hmm.. something isn\'t right')

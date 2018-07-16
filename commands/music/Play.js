@@ -44,7 +44,6 @@ class Play extends Command {
         if (!data || !data.length) throw new Error()
       } catch (error) {
         data = (await this.client.lavalink.load(`ytsearch:${args}`))
-        console.log(data)
         if (!data || !data.length) throw new Error()
       }
     } catch (error) {
