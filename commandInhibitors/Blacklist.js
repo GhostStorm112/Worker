@@ -10,8 +10,6 @@ class Blacklist extends Inhibitor {
     if (setting != null) {
       if (Object.values(setting.data).indexOf(event.author.id) > -1) {
         return 'blacklisted'
-      } else {
-
       }
     }
   }

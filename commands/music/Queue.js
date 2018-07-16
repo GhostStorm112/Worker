@@ -26,7 +26,6 @@ class Queue extends Command {
     for (let track of tracks) {
       data.push(await this.client.lavalink.decode(track))
     }
-  
 
     const totalLength = data.reduce((prev, song) => prev + song.length, 0)
     const paginated = paginate(data.slice(1), args)
@@ -51,7 +50,6 @@ class Queue extends Command {
       }
     })
   }
-
 
   timeString (seconds, forceHours = false, ms = true) {
     if (ms) seconds /= 1000

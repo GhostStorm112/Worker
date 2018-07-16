@@ -51,10 +51,46 @@ class CommandHandler extends EventHandler {
 
       const commandName = command.match(/^[^ ]+/)[0].toLowerCase()
       let matched = this.commands.get(commandName)
-      this.runCommand(matched, command, commandName, event)
+      let reason = this.runInhibitors(matched, command, commandName, event)
+      switch (await reason) {
+        case 'test':
+          return this.client.rest.channel.createMessage(event.channel_id, 'Test inhibitor hit')
+        case 'blacklisted':
+          return this.client.rest.channel.createMessage(event.channel_id, 'You are blacklisted from the bot')
+        case 'disabled':
+          return this.client.rest.channel.createMessage(event.channel_id, 'This command is disabled')
+        case null || undefined:
+          if (matched) {
+            if (commandName === 'help' && command.substring(commandName.length + 1)) {
+              console.timeEnd('command')
+              return matched.run(event, command.substring(commandName.length + 1), this.commands)
+            } else {
+              console.timeEnd('command')
+              return matched.run(event, command.substring(commandName.length + 1))
+            }
+          }
+          for (const c of this.commands.values()) {
+            if (c.aliases && c.aliases.includes(commandName)) {
+              console.timeEnd('command')
+              return c.run(event, command.substring(commandName.length + 1))
+            }
+          }
+      }
     } catch (error) {
       console.error(error)
     }
+  }
+
+  async runInhibitors (commandName, event) {
+    let reason
+    this.inhibitors.forEach(async inhibitor => {
+      reason = inhibitor.run(event, commandName).then(_reason => {
+        if (_reason) {
+          return _reason
+        }
+      })
+    })
+    return reason
   }
   async loadInhibitors () {
     const files = readdirSync(this.inhibitorPath)
@@ -67,30 +103,7 @@ class CommandHandler extends EventHandler {
       }
     }
   }
-  async runCommand (matched, command, commandName, event) {
-    this.inhibitors.forEach(async inhibitor => {
-      let reason = await inhibitor.run(event, commandName)
-      switch (reason) {
-        case 'blacklisted':
-          return this.client.rest.channel.createMessage(event.channel_id, 'You are blacklisted from the bot')
-        case 'disabled':
-          return this.client.rest.channel.createMessage(event.channel_id, 'This command is disabled')
-        case null || undefined:
-          if (matched) {
-            if (commandName === 'help' && command.substring(commandName.length + 1)) {
-              matched.run(event, command.substring(commandName.length + 1), this.commands)
-            } else {
-              matched.run(event, command.substring(commandName.length + 1))
-            }
-          }
-          for (const c of this.commands.values()) {
-            if (c.aliases && c.aliases.includes(commandName)) {
-              return c.run(event, command.substring(commandName.length + 1))
-            }
-          }
-      }
-    })
-  }
+
   async loadCommands () {
     const files = readdirSync(this.commandPath)
     for (let file of files) {
