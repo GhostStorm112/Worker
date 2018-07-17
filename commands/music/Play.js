@@ -58,7 +58,7 @@ class Play extends Command {
     console.log('Sending VOICE AND LAVALINK')
 
     this.client.shard.sendWS(event.shard_id, 'VOICE_STATE_UPDATE', { shard_id: event.shard_id, guild_id: event.guild_id, channel_id: userVoiceChannel.channel_id, self_mute: false, self_deaf: false })
-    this.client.shard.sendWS(event.shard_id, 'LAVALINK', {action: 'PLAY', guild_id: event.guild_id, song: data[0].track})
+    this.client.shard.sendWS(event.shard_id, 'LAVALINK', {action: 'PLAY', shard_id: event.shard_id, guild_id: event.guild_id, song: data[0].track})
 
     return this.client.rest.channel.createMessage(event.channel_id, {
       embed: {
