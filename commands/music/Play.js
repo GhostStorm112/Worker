@@ -25,18 +25,23 @@ class Play extends Command {
     const selfVoiceChannel = await this.client.cache.guilds[event.guild_id].voice_states.get(process.env.BOT_ID)
 
     if (!userVoiceChannel || !userVoiceChannel.channel_id) {
+      console.log('Checking chhanel')
       return this.client.rest.channel.createMessage(event.channel_id, 'I know you wanna jam! But please join a voice channel first.')
     }
 
     if (userVoiceChannel && userVoiceChannel.channel_id) {
       if (selfVoiceChannel && selfVoiceChannel.channel_id) {
         if (userVoiceChannel.channel_id !== selfVoiceChannel.channel_id) {
+          console.log('Bot is in another channel')
+
           return this.client.rest.channel.createMessage(event.channel_id, 'Look don\'t be that guy.')
         }
       }
     }
 
     if (!selfVoiceChannel || !selfVoiceChannel.channel_id) {
+      console.log('Joining chnnael')
+
       await this.client.shard.sendWS(event.shard_id, 'VOICE_STATE_UPDATE', { shard_id: event.shard_id, guild_id: event.guild_id, channel_id: userVoiceChannel.channel_id, self_mute: false, self_deaf: false })
     }
     try {
@@ -50,6 +55,8 @@ class Play extends Command {
     } catch (error) {
       return this.client.rest.createMessage(event.channel_id, 'What ever you did it didn\'t work')
     }
+    console.log('Sending VOICE AND LAVALINK')
+
     this.client.shard.sendWS(event.shard_id, 'VOICE_STATE_UPDATE', { shard_id: event.shard_id, guild_id: event.guild_id, channel_id: userVoiceChannel.channel_id, self_mute: false, self_deaf: false })
     this.client.shard.sendWS(event.shard_id, 'LAVALINK', {action: 'PLAY', guild_id: event.guild_id, song: data[0].track})
 
