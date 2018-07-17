@@ -99,7 +99,7 @@ class CommandHandler extends EventHandler {
       if (path.extname(file) === '.js') {
         const inhibitor = new (require(file))(this)
         this.inhibitors.set(inhibitor.name, inhibitor)
-        this.client.log.info('Loader', `Inhibitor ${inhibitor.name} loaded`)
+        this.client.log.debug('Loader', `Inhibitor ${inhibitor.name} loaded`)
       }
     }
   }
@@ -112,7 +112,7 @@ class CommandHandler extends EventHandler {
       if (path.extname(file) === '.js' && !stats.isDirectory()) {
         const command = new (require(file))(this)
         this.commands.set(command.name, command)
-        this.client.log.info('Loader', `Command ${command.name} loaded`)
+        this.client.log.debug('Loader', `Command ${command.name} loaded`)
       } else if (stats.isDirectory()) {
         this.loadCommandsIn(file)
       }
@@ -127,7 +127,7 @@ class CommandHandler extends EventHandler {
       if (path.extname(file) === '.js' && !stats.isDirectory()) {
         const command = new (require(file))(this)
         this.commands.set(command.name, command)
-        this.client.log.info('Loader', `Command ${command.name} loaded`)
+        this.client.log.debug('Loader', `Command ${command.name} loaded`)
       }
     }
   }

@@ -5,7 +5,7 @@ class TestHandler extends EventHandler {
   }
 
   get canHandle () {
-    return ['presenceUpdate']
+    return ['TEST']
   }
 
   async handle (event) {
