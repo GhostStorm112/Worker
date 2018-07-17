@@ -1,5 +1,4 @@
 const EventHandler = require('../structures/EventHandler')
-
 class TestHandler extends EventHandler {
   get name () {
     return 'test'
@@ -9,8 +8,7 @@ class TestHandler extends EventHandler {
     return ['presenceUpdate']
   }
 
-  handle (event) {
-    // console.log(`PRESENCE -> @${event.user.id} [${event.status}]${event.game ? ` { name: ${event.game.name}, type: ${event.game.type} }` : ''}`)
+  async handle (event) {
   }
 }
 

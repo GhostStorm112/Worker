@@ -16,6 +16,7 @@ class Play extends Command {
   }
 
   async run (event, args) {
+    console.log(event.shard_id)
     if (!args) return this.client.rest.channel.createMessage(event.channel_id, 'What do you think I am a song tree?')
     args = args.trim()
     let data

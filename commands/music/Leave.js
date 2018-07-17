@@ -10,7 +10,9 @@ class Leave extends Command {
   }
 
   async run (event, args) {
+    console.log(event.shard_id)
     this.client.shard.sendWS(event.shard_id, 'LAVALINK', {
+      shard_id: event.shard_id,
       action: 'LEAVE',
       guild_id: event.guild_id,
       channel_id: null,
