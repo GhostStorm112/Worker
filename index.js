@@ -17,6 +17,8 @@ const client = new Worker({
   ownerId: process.env.OWNER_ID
 })
 async function run () {
+  client.log.mode = 1
+
   client.log.info('Worker', `
    _____ _    _  ____   _____ _______
   / ____| |  | |/ __ \\ / ____|__   __|

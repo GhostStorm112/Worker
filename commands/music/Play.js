@@ -16,7 +16,8 @@ class Play extends Command {
   }
 
   async run (event, args) {
-    console.log(event.shard_id)
+    this.client.log.debug('Play', `Running for shard ${event.shard_id}`)
+
     if (!args) return this.client.rest.channel.createMessage(event.channel_id, 'What do you think I am a song tree?')
     args = args.trim()
     let data
@@ -25,14 +26,14 @@ class Play extends Command {
     const selfVoiceChannel = await this.client.cache.guilds[event.guild_id].voice_states.get(process.env.BOT_ID)
 
     if (!userVoiceChannel || !userVoiceChannel.channel_id) {
-      console.log('Checking chhanel')
+      this.client.log.debug('Play', 'User not in voice channel')
       return this.client.rest.channel.createMessage(event.channel_id, 'I know you wanna jam! But please join a voice channel first.')
     }
 
     if (userVoiceChannel && userVoiceChannel.channel_id) {
       if (selfVoiceChannel && selfVoiceChannel.channel_id) {
         if (userVoiceChannel.channel_id !== selfVoiceChannel.channel_id) {
-          console.log('Bot is in another channel')
+          this.client.log.debug('Play', 'Tried to play in another channel while playing')
 
           return this.client.rest.channel.createMessage(event.channel_id, 'Look don\'t be that guy.')
         }
@@ -40,8 +41,7 @@ class Play extends Command {
     }
 
     if (!selfVoiceChannel || !selfVoiceChannel.channel_id) {
-      console.log('Joining chnnael')
-
+      this.client.log.debug('Play', `Joining channel ${userVoiceChannel.channel_id}`)
       await this.client.shard.sendWS(event.shard_id, 'VOICE_STATE_UPDATE', { shard_id: event.shard_id, guild_id: event.guild_id, channel_id: userVoiceChannel.channel_id, self_mute: false, self_deaf: false })
     }
     try {
@@ -55,9 +55,7 @@ class Play extends Command {
     } catch (error) {
       return this.client.rest.createMessage(event.channel_id, 'What ever you did it didn\'t work')
     }
-    console.log('Sending VOICE AND LAVALINK')
-
-    this.client.shard.sendWS(event.shard_id, 'VOICE_STATE_UPDATE', { shard_id: event.shard_id, guild_id: event.guild_id, channel_id: userVoiceChannel.channel_id, self_mute: false, self_deaf: false })
+    this.client.log.debug('Play', `Playing in ${event.guild_id} on ${event.shard_id}`)
     this.client.shard.sendWS(event.shard_id, 'LAVALINK', {action: 'PLAY', shard_id: event.shard_id, guild_id: event.guild_id, song: data[0].track})
 
     return this.client.rest.channel.createMessage(event.channel_id, {
