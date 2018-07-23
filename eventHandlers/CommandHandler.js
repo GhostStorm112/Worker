@@ -51,7 +51,8 @@ class CommandHandler extends EventHandler {
 
       const commandName = command.match(/^[^ ]+/)[0].toLowerCase()
       let matched = this.commands.get(commandName)
-      let reason = this.runInhibitors(matched, command, commandName, event)
+      let reason = this.runInhibitors(event, commandName)
+
       switch (await reason) {
         case 'test':
           return this.client.rest.channel.createMessage(event.channel_id, 'Test inhibitor hit')
@@ -81,11 +82,11 @@ class CommandHandler extends EventHandler {
     }
   }
 
-  async runInhibitors (commandName, event) {
+  async runInhibitors (event, commandName) {
     let reason
     this.inhibitors.forEach(async inhibitor => {
       reason = inhibitor.run(event, commandName).then(_reason => {
-        if (_reason) {
+        if (_reason !== undefined) {
           return _reason
         }
       })

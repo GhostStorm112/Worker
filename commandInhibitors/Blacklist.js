@@ -5,12 +5,10 @@ class Blacklist extends Inhibitor {
     return 'blacklist'
   }
 
-  async run (event, msg, command) {
+  async run (event, commandName) {
     let setting = await this.client.settings.getSetting('blacklist', event.guild_id)
-    if (setting != null) {
-      if (Object.values(setting.data).indexOf(event.author.id) > -1) {
-        return 'blacklisted'
-      }
+    if (setting != null && Object.values(setting.data).indexOf(event.author.id) > -1) {
+      return 'blacklisted'
     }
   }
 }
