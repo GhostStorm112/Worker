@@ -47,16 +47,16 @@ class Play extends Command {
     try {
       try {
         data = await this.client.lavalink.load(`${args}`)
-        if (!data || !data.length) throw new Error()
+        if (data.loadType === 'NO_MATCHES') throw new Error()
       } catch (error) {
         data = (await this.client.lavalink.load(`ytsearch:${args}`))
-        if (!data || !data.length) throw new Error()
+        if (data.loadType === 'NO_MATCHES') throw new Error()
       }
     } catch (error) {
       return this.client.rest.createMessage(event.channel_id, 'What ever you did it didn\'t work')
     }
     this.client.log.debug('Play', `Playing in ${event.guild_id} on ${event.shard_id}`)
-    this.client.shard.sendWS(event.shard_id, 'LAVALINK', {action: 'PLAY', shard_id: event.shard_id, guild_id: event.guild_id, song: data[0].track})
+    this.client.shard.sendWS(event.shard_id, 'LAVALINK', {action: 'PLAY', shard_id: event.shard_id, guild_id: event.guild_id, song: data.tracks )
 
     return this.client.rest.channel.createMessage(event.channel_id, {
       embed: {
@@ -64,7 +64,7 @@ class Play extends Command {
           name: `${event.author.username}#${event.author.discriminator} (${event.author.id})`,
           icon_url: `https://cdn.discordapp.com/avatars/${event.author.id}/${event.author.avatar}.webp`
         },
-        description: `**Queued:** [${data[0].info.title}](${data[0].info.uri})`
+        description: `**Queued:** [${data.tracks[0].info.title}](${data.tracks[0].info.uri})`
       }
     })
   }
