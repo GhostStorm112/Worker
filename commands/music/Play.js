@@ -56,7 +56,7 @@ class Play extends Command {
       return this.client.rest.createMessage(event.channel_id, 'What ever you did it didn\'t work')
     }
     this.client.log.debug('Play', `Playing in ${event.guild_id} on ${event.shard_id}`)
-    this.client.shard.sendWS(event.shard_id, 'LAVALINK', {action: 'PLAY', shard_id: event.shard_id, guild_id: event.guild_id, song: data.tracks )
+    this.client.shard.sendWS(event.shard_id, 'LAVALINK', { action: 'PLAY', shard_id: event.shard_id, guild_id: event.guild_id, song: data.tracks[0].track })
 
     return this.client.rest.channel.createMessage(event.channel_id, {
       embed: {

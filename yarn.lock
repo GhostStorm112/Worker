@@ -16,15 +16,15 @@
 
 "Core@https://gitlab.com/GhostStorm/Core.git", "ghost-core@https://gitlab.com/GhostStorm/Core.git":
   version "0.0.4"
-  resolved "https://gitlab.com/GhostStorm/Core.git#159437b5aa0c003033e86d977d450f436b061296"
+  resolved "https://gitlab.com/GhostStorm/Core.git#d15bd3fa5a005e374acc87be0c76031c849a4edd"
   dependencies:
-    lavalink "0.7.2"
-    lavaqueue "0.4.1"
+    lavalink "1.1.1"
+    lavaqueue "1.1.1"
     winston "3.0.0-rc5"
 
 "SettingsManager@https://gitlab.com/GhostStorm/SettingsManager.git":
   version "0.0.2"
-  resolved "https://gitlab.com/GhostStorm/SettingsManager.git#219d51bcdc78cafed567d64c2e997910d17268af"
+  resolved "https://gitlab.com/GhostStorm/SettingsManager.git#cc35ab75b9958828a654861fff3432ac219755c4"
   dependencies:
     Core "https://gitlab.com/GhostStorm/Core.git"
     mongoose "^5.2.3"
@@ -1203,15 +1203,15 @@ kuler@1.0.x:
   dependencies:
     colornames "^1.1.1"
 
-lavalink@0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/lavalink/-/lavalink-0.7.2.tgz#303a263a886aafa54adf5faf6d1970c33e3f1438"
+lavalink@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/lavalink/-/lavalink-1.1.1.tgz#d8d0440e13faba1ee7effe022824bcf85525bd03"
   dependencies:
-    ws "^4.0.0"
+    ws "^5.2.0"
 
-lavaqueue@0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/lavaqueue/-/lavaqueue-0.4.1.tgz#003c55beaffc03ec1c48601a0578890c5b765431"
+lavaqueue@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/lavaqueue/-/lavaqueue-1.1.1.tgz#1a19201d329ffbcad13317d34746451f1b8fcc0d"
   dependencies:
     ioredis "^3.2.2"
 
@@ -2096,12 +2096,11 @@ write@^0.2.1:
   dependencies:
     mkdirp "^0.5.1"
 
-ws@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-4.1.0.tgz#a979b5d7d4da68bf54efe0408967c324869a7289"
+ws@^5.2.0:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-5.2.2.tgz#dffef14866b8e8dc9133582514d1befaf96e980f"
   dependencies:
     async-limiter "~1.0.0"
-    safe-buffer "~5.1.0"
 
 xml2json@latest:
   version "0.11.2"
