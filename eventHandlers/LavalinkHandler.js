@@ -11,19 +11,12 @@ class LavalinkHandler extends EventHandler {
 
   async handle (event) {
     let players = await this.client.cache.storage.get('players', { type: 'arr' })
-    let queue
-    let tracks
-    let playing
-    if (players) {
-      queue = await this.client.lavalink.queues.get(event.guild_id)
-      tracks = await queue.tracks()
-      playing = await queue.current()
+    let shardNum
 
-      let shardNum
+    if (players) {
       for (const player of players) {
         shardNum = parseInt(idToBinary(player.guild_id).slice(0, -22), 2) % event.shard_amount
-
-        if (shardNum === event.shard) {
+        if (shardNum === event.shard && player.channel_id) {
           this.client.log.debug('LavalinkHandler', `Starting queue ${player.guild_id} on shard ${shardNum}`)
           // await this.client.shard.sendWS(shardNum, 'VOICE_STATE_UPDATE', { shard_id: shardNum, guild_id: player.guild_id, channel_id: null, self_mute: false, self_deaf: false })
           // await this.client.shard.sendWS(shardNum, 'VOICE_STATE_UPDATE', { shard_id: shardNum, guild_id: player.guild_id, channel_id: player.channel_id, self_mute: false, self_deaf: false })
