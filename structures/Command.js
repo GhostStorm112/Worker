@@ -6,7 +6,6 @@
 class Command {
   constructor (handler) {
     Object.defineProperty(this, 'client', { value: handler.client })
-
   }
 
   get name () {
