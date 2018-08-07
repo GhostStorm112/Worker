@@ -52,30 +52,25 @@ class CommandHandler extends EventHandler {
       const commandName = command.match(/^[^ ]+/)[0].toLowerCase()
       let matched = this.commands.get(commandName)
       let reason = this.runInhibitors(event, commandName)
+      if (await reason) {
+        console.timeEnd('command')
+        return this.client.rest.channel.createMessage(event.channel_id, await reason)
+      }
 
-      switch (await reason) {
-        case 'test':
-          return this.client.rest.channel.createMessage(event.channel_id, 'Test inhibitor hit')
-        case 'blacklisted':
-          return this.client.rest.channel.createMessage(event.channel_id, 'You are blacklisted from the bot')
-        case 'disabled':
-          return this.client.rest.channel.createMessage(event.channel_id, 'This command is disabled')
-        case null || undefined:
-          if (matched) {
-            if (commandName === 'help' && command.substring(commandName.length + 1)) {
-              console.timeEnd('command')
-              return matched.run(event, command.substring(commandName.length + 1), this.commands)
-            } else {
-              console.timeEnd('command')
-              return matched.run(event, command.substring(commandName.length + 1))
-            }
-          }
-          for (const c of this.commands.values()) {
-            if (c.aliases && c.aliases.includes(commandName)) {
-              console.timeEnd('command')
-              return c.run(event, command.substring(commandName.length + 1))
-            }
-          }
+      if (matched) {
+        if (commandName === 'help' && command.substring(commandName.length + 1)) {
+          console.timeEnd('command')
+          return matched.run(event, command.substring(commandName.length + 1), this.commands)
+        } else {
+          console.timeEnd('command')
+          return matched.run(event, command.substring(commandName.length + 1))
+        }
+      }
+      for (const c of this.commands.values()) {
+        if (c.aliases && c.aliases.includes(commandName)) {
+          console.timeEnd('command')
+          return c.run(event, command.substring(commandName.length + 1))
+        }
       }
     } catch (error) {
       console.error(error)
@@ -84,7 +79,7 @@ class CommandHandler extends EventHandler {
 
   async runInhibitors (event, commandName) {
     let reason
-    this.inhibitors.forEach(async inhibitor => {
+    this.inhibitors.forEach(inhibitor => {
       reason = inhibitor.run(event, commandName).then(_reason => {
         if (_reason !== undefined) {
           return _reason

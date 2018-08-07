@@ -15,7 +15,6 @@ class Blacklist extends Command {
     let action = args.replace(/[<>@ 0-9]/g, '')
 
     let setting = await this.client.settings.getSetting('blacklist', event.guild_id)
-    console.log(setting.data.includes(user))
 
     if (action === 'add') {
       if (!setting) {

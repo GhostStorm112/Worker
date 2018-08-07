@@ -7,8 +7,8 @@ class Blacklist extends Inhibitor {
 
   async run (event, commandName) {
     let setting = await this.client.settings.getSetting('blacklist', event.guild_id)
-    if (setting != null && Object.values(setting.data).indexOf(event.author.id) > -1) {
-      return 'blacklisted'
+    if (setting != null && setting.data.includes(event.author.id)) {
+      return 'You are blacklisted from the bot'
     }
   }
 }
