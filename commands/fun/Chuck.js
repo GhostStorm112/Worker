@@ -16,10 +16,6 @@ class Chuck extends Command {
       .then(response => {
         return this.client.rest.channel.createMessage(event.channel_id, {
           embed: {
-            author: {
-              name: `${event.author.username}#${event.author.discriminator} (${event.author.id})`,
-              icon_url: `https://cdn.discordapp.com/avatars/${event.author.id}/${event.author.avatar}.webp`
-            },
             description: `**${response.data.value.joke}** `,
             image: {
               url: `https://thumbs.gfycat.com/MadeupMarvelousAfricancivet-size_restricted.gif`

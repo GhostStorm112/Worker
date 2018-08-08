@@ -13,6 +13,8 @@ class Butt extends Command {
   async run (event, args) {
     const channel = await this.client.rest.channel.getChannel(event.channel_id)
     if (channel.nsfw) {
+      console.time('ass')
+
       axios.get(`http://api.obutts.ru/butts/${randomInt(5000)}/1/rank`)
         .then(response => {
           let image = `http://media.obutts.ru/${response.data[0].preview}`
@@ -30,6 +32,7 @@ class Butt extends Command {
             }
           })
         })
+      console.timeEnd('ass')
     } else {
       return this.client.rest.channel.createMessage(channel.id, 'This is not a NSFW channel!')
     }
