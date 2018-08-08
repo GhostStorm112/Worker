@@ -10,7 +10,6 @@
 		"test": "eslint ."
 	},
 	"dependencies": {
-		"Core": "https://gitlab.com/GhostStorm/Core.git",
 		"SettingsManager": "https://gitlab.com/GhostStorm/SettingsManager.git",
 		"axios": "^0.18.0",
 		"cats-js": "^1.0.2",
