@@ -28,6 +28,8 @@ class CommandHandler extends EventHandler {
   async init () {
     // Setup StatsD
     if (process.env.STATSD) {
+      this.client.log.debug('StatsD', `Connecting to stats server`)
+
       this.statsClient = new StatsD({
         host: process.env.STATSD_HOST,
         port: process.env.STATSD_PORT,
@@ -60,9 +62,19 @@ class CommandHandler extends EventHandler {
       if (matched) {
         if (commandName === 'help' && command.substring(commandName.length + 1)) {
           console.timeEnd('command')
+          this.statsClient.increment('command', 1, 1, [`command:${commandName}`, `guild:${event.guild_id}`], (err) => {
+            if (err) {
+              console.log(err)
+            }
+          })
           return matched.run(event, command.substring(commandName.length + 1), this.commands)
         } else {
           console.timeEnd('command')
+          this.statsClient.increment('command', 1, 1, [`command:${commandName}`, `guild:${event.guild_id}`], (err) => {
+            if (err) {
+              console.log(err)
+            }
+          })
           return matched.run(event, command.substring(commandName.length + 1))
         }
       }
