@@ -7,7 +7,7 @@ class Boob extends Command {
   }
 
   get aliases () {
-    return ['boobies', 'tit']
+    return ['boobies', 'tit', 'boob', 'boobie', 'breast']
   }
 
   async run (event, args) {
@@ -18,6 +18,7 @@ class Boob extends Command {
           let image = `http://media.oboobs.ru/${response.data[0].preview}`
           return this.client.rest.channel.createMessage(event.channel_id, args || {
             embed: {
+              color: 0xff0000,
               author: {
                 name: `${event.author.username}#${event.author.discriminator} (${event.author.id})`,
                 icon_url: `https://cdn.discordapp.com/avatars/${event.author.id}/${event.author.avatar}.webp`

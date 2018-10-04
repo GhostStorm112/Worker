@@ -12,7 +12,7 @@ class Play extends Command {
 
   }
   get aliases () {
-    return ['test']
+    return ['']
   }
 
   async run (event, args) {
