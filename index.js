@@ -29,7 +29,7 @@ async function run () {
     
     Version: ${info.version} By: ${info.author}
   `)
-  client.log.info('Worker', 'Starting')
+  client.log.info('Worker', 'Starting...')
   await client.initialize()
   client.log.info('Worker', 'Ready')
 
