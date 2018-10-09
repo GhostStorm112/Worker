@@ -52,7 +52,7 @@ class Help extends Command {
           },
           {
             name: 'Search',
-            value: '``anime``, ``manga``, ``wiki``',
+            value: '``anime``, ``manga``, ``wiki``, ``urban``',
             infline: true
           },
           {
@@ -62,7 +62,7 @@ class Help extends Command {
           },
           {
             name: 'Music',
-            value: '``clearq``, ``leave``, ``pause``, ``play``, ``queue``, ``resume``, ``skip``, ``stop``',
+            value: '``clearq``, ``leave``, ``pause``, ``play``, ``queue``, ``resume``, ``skip``',
             infline: true
           }]
         }
