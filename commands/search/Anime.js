@@ -1,5 +1,7 @@
 const Command = require('../../structures/Command')
 const kitsu = require('node-kitsu')
+const RichEmbed = require('../../utils/RichEmbed')
+
 class Anime extends Command {
   get name () {
     return 'anime'
@@ -20,37 +22,18 @@ class Anime extends Command {
         const anime = result[0]
         const url = `https://kitsu.io/anime/${anime.attributes.slug}`
 
-        return this.client.rest.channel.createMessage(event.channel_id, {
-          embed: {
-            type: 'rich',
-            title: anime.attributes.titles.en_jp,
-            url,
-            description: `**Synopsis:**\n${anime.attributes.synopsis.substring(0, 450)}...`,
-            color: 0xff0000,
-            fields: [
-              {
-                name: '❯ Type',
-                value: fixCase(anime.attributes.showType),
-                inline: true
-              },
-              {
-                name: '❯ Episodes',
-                value: anime.attributes.episodeCount,
-                inline: true
-              },
-              {
-                name: '❯ Rating',
-                value: anime.attributes.averageRating,
-                inline: true
-              }
-            ],
-            author: {
-              name: 'kitsu.io',
-              url: 'https://kitsu.io'
-            },
-            thumbnail: { url: anime.attributes.posterImage.small }
-          }
-        })
+        let message = new RichEmbed()
+          .setTitle(anime.attributes.titles.en_jp)
+          .setURL(url)
+          .setAuthor('kitsu.io', null, 'https://kitsu.io')
+          .setThumbnail(anime.attributes.posterImage.small)
+          .setDescription(`**Synopsis:**\n${anime.attributes.synopsis.substring(0, 450)}...`)
+          .setColor(0xff0000)
+          .setTimestamp()
+          .addField('❯ Type', fixCase(anime.attributes.showType), true)
+          .addField('❯ Episodes', anime.attributes.popularityRank, true)
+          .addField('❯ Rating', anime.attributes.averageRating, true)
+        return this.client.rest.channel.createMessage(event.channel_id, {embed: message})
       })
       .catch(err => {
         console.error(err)

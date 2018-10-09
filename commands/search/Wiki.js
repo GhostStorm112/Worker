@@ -26,6 +26,7 @@ class Wiki extends Command {
     const paragraphs = summary.split('\n')
     const url = page.raw.fullurl
     paragraphs.length = Math.min(2, paragraphs.length)
+    // Replace with new RichEmbed builder
     return this.client.rest.channel.createMessage(event.channel_id, {
       embed: {
         color: 0xff0000,
@@ -38,8 +39,6 @@ class Wiki extends Command {
         description: paragraphs.join('\n\n')
       }
     })
-
-    // return this.client.rest.channel.createMessage(event.channel_id, args || 'echo!')
   }
 }
 
