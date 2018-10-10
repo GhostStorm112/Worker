@@ -35,10 +35,6 @@ class Queue extends Command {
     return this.client.rest.channel.createMessage(event.channel_id, {
       embed: {
         color: 0xff0000,
-        author: {
-          name: `${event.author.username}#${event.author.discriminator} (${event.author.id})`,
-          icon_url: `https://cdn.discordapp.com/avatars/${event.author.id}/${event.author.avatar}.webp`
-        },
         description: stripIndents`
                 **Song queue${paginated.page > 1 ? `, page ${paginated.page}` : ''}**
 

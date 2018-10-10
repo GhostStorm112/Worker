@@ -44,6 +44,7 @@ class Play extends Command {
       this.client.log.debug('Play', `Joining channel ${userVoiceChannel.channel_id}`)
       await this.client.shard.sendWS(event.shard_id, 'VOICE_STATE_UPDATE', { shard_id: event.shard_id, guild_id: event.guild_id, channel_id: userVoiceChannel.channel_id, self_mute: false, self_deaf: false })
     }
+
     try {
       try {
         data = await this.client.lavalink.load(`${args}`)
