@@ -1,4 +1,4 @@
-const Worker = require('../libs/ghost-worker')
+const Worker = require('ghost-worker')
 const DBL = require('dblapi.js')
 const path = require('path')
 const info = require('./package.json')
