@@ -17,11 +17,9 @@ class Echo extends Command {
   async run (event, args) {
     this.client.rest.channel.startChannelTyping(event.channel_id)
 
-    let kitty
-    let image
     const c = new Cats('MzIwMTI5')
-    kitty = await c.get()
-    image = await kitty.images.image.url
+    const kitty = await c.get()
+    const image = kitty.images.image.url
     if (image) {
       return this.client.rest.channel.createMessage(event.channel_id, {
         embed: {

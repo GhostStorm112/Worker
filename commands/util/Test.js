@@ -10,10 +10,7 @@ class Test extends Command {
   }
 
   async run (event, args) {
-    const queue = await this.client.lavalink.queues.get(event.guild_id)
-    console.log(queue.player.paused)
-    console.log(queue.player.playing)
-    console.log(queue.player)
+
 
     // if (!this.client.isOwner(event.author.id)) { return }
     // let queue

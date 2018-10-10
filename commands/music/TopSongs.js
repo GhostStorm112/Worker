@@ -14,16 +14,16 @@ class TopSongs extends Command {
     billboard('hot-100', (err, songs) => {
       let message
 
-      if (err) console.log(err)
+      if (err) this.client.log.error(err)
       message = '```js\n' + '==Billboard top 10==\n'
-      console.log(songs)
+      this.client.log.info('topsongs', songs)
       for (const song of songs) {
         if (song.rank > 10) break
         message = message + `Rank: "${song.rank}" Title: "${song.title}" Artist: "${song.artist}"\n`
       }
 
       message = message + '```'
-      console.log(message)
+      this.client.log.info('topsongs', message)
       return this.client.rest.channel.createMessage(event.channel_id, message)
     })
   }

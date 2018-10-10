@@ -15,8 +15,8 @@ class Quote extends Command {
 
     args = args.trim()
 
-    var config = {
-      headers: {'X-Mashape-Key': 'cMnKOn67xumshMUjjhr6hVGLDotkp1rh76QjsnXkCb54oaczPS'}
+    const config = {
+      headers: { 'X-Mashape-Key': 'cMnKOn67xumshMUjjhr6hVGLDotkp1rh76QjsnXkCb54oaczPS' }
     }
 
     axios.get('https://andruxnet-random-famous-quotes.p.mashape.com/?cat=famous&count=1', config).then(response => {

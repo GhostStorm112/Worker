@@ -22,7 +22,7 @@ class Anime extends Command {
         const anime = result[0]
         const url = `https://kitsu.io/anime/${anime.attributes.slug}`
 
-        let message = new RichEmbed()
+        const message = new RichEmbed()
           .setTitle(anime.attributes.titles.en_jp)
           .setURL(url)
           .setAuthor('kitsu.io', null, 'https://kitsu.io')
@@ -36,7 +36,7 @@ class Anime extends Command {
         return this.client.rest.channel.createMessage(event.channel_id, {embed: message})
       })
       .catch(err => {
-        console.error(err)
+        this.client.log.error(err)
         return this.client.rest.channel.createMessage(event.channe_id, 'There was an error processing the search.')
       })
   }

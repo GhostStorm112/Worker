@@ -10,7 +10,7 @@ class LavalinkHandler extends EventHandler {
   }
 
   async handle (event) {
-    let players = await this.client.cache.storage.get('players', { type: 'arr' })
+    const players = await this.client.cache.storage.get('players', { type: 'arr' })
     let shardNum
 
     if (players) {

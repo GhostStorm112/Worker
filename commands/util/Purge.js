@@ -17,8 +17,8 @@ class Purge extends Command {
       this.client.rest.channel.createMessage(event.channel_id, 'You need to specify a number > 2')
     } else {
       const messages = await this.client.rest.channel.getChannelMessages(event.channel_id, { limit: args })
-      let purge = []
-      for (var message in messages) {
+      const purge = []
+      for (const message in messages) {
         purge.push(messages[message].id)
       }
       this.client.rest.channel.bulkDeleteMessages(event.channel_id, purge.reverse())

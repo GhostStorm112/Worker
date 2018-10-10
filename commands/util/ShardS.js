@@ -11,7 +11,7 @@ class ShardS extends Command {
 
   async run (event, args) {
     if (!this.client.isOwner(event.author.id)) { return }
-    let shards = await this.client.cache.storage.get('shards', { type: 'arr' })
+    const shards = await this.client.cache.storage.get('shards', {type: 'arr'})
 
     let message
     message = '```js\n' + '==Shards==\n'
@@ -24,7 +24,7 @@ class ShardS extends Command {
       }
     }
     message = message + '```'
-    console.log(message)
+    this.client.log.info('shards',message)
     return this.client.rest.channel.createMessage(event.channel_id, message)
   }
 }

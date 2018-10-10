@@ -15,7 +15,7 @@ class Boob extends Command {
     if (channel.nsfw) {
       axios.get(`http://api.oboobs.ru/boobs/${randomInt(5000)}/1/rank`)
         .then(response => {
-          let image = `http://media.oboobs.ru/${response.data[0].preview}`
+          const image = `http://media.oboobs.ru/${response.data[0].preview}`
           return this.client.rest.channel.createMessage(event.channel_id, args || {
             embed: {
               color: 0xff0000,

@@ -9,7 +9,7 @@ class Play extends Command {
   }
 
   get usage () {
-
+    return "play <song>"
   }
   get aliases () {
     return ['']

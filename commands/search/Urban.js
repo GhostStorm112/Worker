@@ -20,10 +20,10 @@ class Urban extends Command {
     }
     ud.term(query, (error, entries, tags, sounds) => {
       if (error) {
-        console.error(error.message)
+        this.client.log.error(error)
         return this.client.rest.channel.createMessage(event.channel_id, 'Hmm someting didn\'t go so right')
       } else {
-        let message = new RichEmbed()
+        const message = new RichEmbed()
           .setTitle(`Result for "${query}" `)
           .setColor(0xff0000)
           .setTimestamp()

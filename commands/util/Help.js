@@ -10,11 +10,9 @@ class Help extends Command {
   }
 
   async run (event, args, commands) {
-    console.log(args)
-    console.log(commands)
     if (!args && !commands) {
-      let author = event.author.id
-      let channel = await this.client.rest.user.createDirectMessageChannel(author)
+      const author = event.author.id
+      const channel = await this.client.rest.user.createDirectMessageChannel(author)
       return this.client.rest.channel.createMessage(channel.id, {
         embed: {
           type: 'rich',

@@ -1,6 +1,6 @@
 const EventHandler = require('../structures/EventHandler')
 const promisifyAll = require('tsubaki').promisifyAll
-const { readdirSync, statSync } = promisifyAll(require('fs'))
+const {readdirSync, statSync} = promisifyAll(require('fs'))
 const path = require('path')
 const StatsD = require('hot-shots')
 
@@ -43,36 +43,41 @@ class CommandHandler extends EventHandler {
 
   async handle (event) {
     try {
-      console.time('command')
       if (event.author.bot || event.author.id === process.env.BOT_ID) { return }
-
       let command
+      
       if (this.mentionRegex.test(event.content)) { command = event.content.replace(/^[^ ]+ /, '').trim() } else if (event.content.startsWith(this.prefix)) { command = event.content.substring(this.prefix.length).trim() } else { return }
+      
+      const commandName = command.match(/^[^ ]+/)[0].toLowerCase()
+      const matched = this.commands.get(commandName)
+
+      this.client.log.debug('CommandHandler', `Running command "${commandName}" in ${event.guild_id}`)
+
+
 
       if (!command) { return }
-
-      const commandName = command.match(/^[^ ]+/)[0].toLowerCase()
-      let matched = this.commands.get(commandName)
-      let reason = this.runInhibitors(event, commandName)
+      
+      const reason = this.runInhibitors(event, commandName)
       if (await reason) {
-        console.timeEnd('command')
+        this.client.log.debug('CommandHandler', `Command "${commandName}" in ${event.guild_id} finished`)
+
         return this.client.rest.channel.createMessage(event.channel_id, await reason)
       }
 
       if (matched) {
         if (commandName === 'help' && command.substring(commandName.length + 1)) {
-          console.timeEnd('command')
-          this.statsClient.increment('command', 1, 1, [`command:${commandName}`, `guild:${event.guild_id}`], (err) => {
-            if (err) {
-              console.log(err)
+          this.client.log.debug('CommandHandler', `Command "${commandName}" in ${event.guild_id} finished`)
+          this.statsClient.increment('command', 1, 1, [`command:${commandName}`, `guild:${event.guild_id}`], (error) => {
+            if (error) {
+              this.client.log.error('CommandHandler', error.message)
             }
           })
           return matched.run(event, command.substring(commandName.length + 1), this.commands)
         } else {
-          console.timeEnd('command')
-          this.statsClient.increment('command', 1, 1, [`command:${commandName}`, `guild:${event.guild_id}`], (err) => {
-            if (err) {
-              console.log(err)
+          this.client.log.debug('CommandHandler', `Command "${commandName}" in ${event.guild_id} finished`)
+          this.statsClient.increment('command', 1, 1, [`command:${commandName}`, `guild:${event.guild_id}`], (error) => {
+            if (error) {
+              this.client.log.error('CommandHandler', error)
             }
           })
           return matched.run(event, command.substring(commandName.length + 1))
@@ -80,12 +85,12 @@ class CommandHandler extends EventHandler {
       }
       for (const c of this.commands.values()) {
         if (c.aliases && c.aliases.includes(commandName)) {
-          console.timeEnd('command')
+          this.client.log.debug('CommandHandler', `Command "${commandName}" in ${event.guild_id} finished`)
           return c.run(event, command.substring(commandName.length + 1))
         }
       }
     } catch (error) {
-      console.error(error)
+      this.client.log.error('CommandHandler', error.message)
     }
   }
 
