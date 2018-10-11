@@ -43,6 +43,7 @@ class CommandHandler extends EventHandler {
 
   async handle (event) {
     try {
+      console.log(event)
       if (event.author.bot || event.author.id === process.env.BOT_ID) { return }
       let command
       
@@ -72,7 +73,7 @@ class CommandHandler extends EventHandler {
               this.client.log.error('CommandHandler', error.message)
             }
           })
-          return matched.run(event, command.substring(commandName.length + 1), this.commands)
+          return await matched.run(event, command.substring(commandName.length + 1), this.commands)
         } else {
           this.client.log.debug('CommandHandler', `Command "${commandName}" in ${event.guild_id} finished`)
           this.statsClient.increment('command', 1, 1, [`command:${commandName}`, `guild:${event.guild_id}`], (error) => {
@@ -80,13 +81,13 @@ class CommandHandler extends EventHandler {
               this.client.log.error('CommandHandler', error)
             }
           })
-          return matched.run(event, command.substring(commandName.length + 1))
+          return await matched.run(event, command.substring(commandName.length + 1))
         }
       }
       for (const c of this.commands.values()) {
         if (c.aliases && c.aliases.includes(commandName)) {
           this.client.log.debug('CommandHandler', `Command "${commandName}" in ${event.guild_id} finished`)
-          return c.run(event, command.substring(commandName.length + 1))
+          return await c.run(event, command.substring(commandName.length + 1))
         }
       }
     } catch (error) {
