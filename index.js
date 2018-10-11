@@ -14,7 +14,8 @@ const client = new Worker({
   lavalinkRest: process.env.LAVALINK_REST,
   lavalinkWs: process.env.LAVALINK_WS,
   discordToken: process.env.TOKEN,
-  ownerId: process.env.OWNER_ID
+  ownerId: process.env.OWNER_ID,
+  restHost: process.env.REST_HOST
 })
 async function run () {
   client.log.mode = 1
