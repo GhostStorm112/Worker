@@ -71,7 +71,6 @@ class CacheHandler extends EventHandler {
       case 'VOICE_SERVER_UPDATE':
         break
     }
-    // console.log(`PRESENCE -> @${event.user.id} [${event.status}]${event.game ? ` { name: ${event.game.name}, type: ${event.game.type} }` : ''}`)
   }
 }
 

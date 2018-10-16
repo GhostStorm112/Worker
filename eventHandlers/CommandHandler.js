@@ -90,6 +90,7 @@ class CommandHandler extends EventHandler {
         }
       }
     } catch (error) {
+      console.error(error)
       this.client.log.error('CommandHandler', error.message)
     }
   }

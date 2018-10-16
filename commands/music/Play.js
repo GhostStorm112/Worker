@@ -39,8 +39,6 @@ class Play extends Command {
         }
       }
     }
-    this.client.log.debug('Play', 'SelfVoiceChannel:' + selfVoiceChannel.channel_id)
-    this.client.log.debug('Play', 'userVoiceChannel:' + userVoiceChannel.channel_id)
 
     if (!selfVoiceChannel || !selfVoiceChannel.channel_id) {
       this.client.log.debug('Play', `Joining channel ${userVoiceChannel.channel_id}`)
@@ -56,7 +54,7 @@ class Play extends Command {
         if (data.loadType === 'NO_MATCHES') throw new Error()
       }
     } catch (error) {
-      return this.client.rest.createMessage(event.channel_id, 'What ever you did it didn\'t work')
+      return this.client.rest.channel.createMessage(event.channel_id, 'What ever you did it didn\'t work')
     }
 
     this.client.log.debug('Play', `Playing in ${event.guild_id} on ${event.shard_id}`)
