@@ -16,7 +16,6 @@ class TopSongs extends Command {
 
       if (err) this.client.log.error(err)
       message = '```js\n' + '==Billboard top 10==\n'
-      this.client.log.info('topsongs', songs)
       for (const song of songs) {
         if (song.rank > 10) break
         message = message + `Rank: "${song.rank}" Title: "${song.title}" Artist: "${song.artist}"\n`

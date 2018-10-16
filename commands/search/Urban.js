@@ -25,9 +25,11 @@ class Urban extends Command {
       } else {
         const message = new RichEmbed()
           .setTitle(`Result for "${query}" `)
+          .setURL(entries[0].permalink)
+          .setAuthor('Urban Dictionary', null, 'https://urbandictionary.com')
           .setColor(0xff0000)
           .setTimestamp()
-          .addField('Definition', `${entries[0].definition}`)
+          .addField('Definition', `${entries[0].definition.substring(0, 600)}...`)
           .addField('Example', `${entries[0].example}`)
         this.client.rest.channel.createMessage(event.channel_id, {embed: message})
       }

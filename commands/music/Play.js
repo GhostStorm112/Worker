@@ -16,6 +16,7 @@ class Play extends Command {
   }
 
   async run (event, args) {
+    
     this.client.log.debug('Play', `Running for shard ${event.shard_id}`)
 
     if (!args) return this.client.rest.channel.createMessage(event.channel_id, 'What do you think I am a song tree?')
@@ -42,7 +43,7 @@ class Play extends Command {
 
     if (!selfVoiceChannel || !selfVoiceChannel.channel_id) {
       this.client.log.debug('Play', `Joining channel ${userVoiceChannel.channel_id}`)
-      await this.client.shard.sendWS(event.shard_id, 'VOICE_STATE_UPDATE', { shard_id: event.shard_id, guild_id: event.guild_id, channel_id: userVoiceChannel.channel_id, self_mute: false, self_deaf: false })
+      await this.client.shard.sendWS(event.gateway, 'VOICE_STATE_UPDATE', { shard_id: event.shard_id, guild_id: event.guild_id, channel_id: userVoiceChannel.channel_id, self_mute: false, self_deaf: false })
     }
 
     try {
@@ -58,7 +59,7 @@ class Play extends Command {
     }
 
     this.client.log.debug('Play', `Playing in ${event.guild_id} on ${event.shard_id}`)
-    this.client.shard.sendWS(event.shard_id, 'LAVALINK', { action: 'PLAY', shard_id: event.shard_id, guild_id: event.guild_id, song: data.tracks[0].track })
+    this.client.shard.sendWS(event.gateway, 'LAVALINK', { action: 'PLAY', shard_id: event.shard_id, guild_id: event.guild_id, song: data.tracks[0].track })
 
     return this.client.rest.channel.createMessage(event.channel_id, {
       embed: {

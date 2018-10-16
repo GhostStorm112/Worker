@@ -17,7 +17,6 @@ class Test extends Command {
     for(const key in used){
       this.client.log.debug('Test', `${key} ${Math.round(used[key] / 1024 / 1024 * 100) / 100}`)
     }
-
     async function sleep(time) {
       const start = new Date().getTime()
       for (let i = 0; i < 1e7; i++){
