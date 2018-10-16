@@ -50,23 +50,20 @@ class CommandHandler extends EventHandler {
       
       const commandName = command.match(/^[^ ]+/)[0].toLowerCase()
       const matched = this.commands.get(commandName)
-
-      this.client.log.debug('CommandHandler', `Running command "${commandName}" in ${event.guild_id}`)
-
-
+      this.client.log.profile(`Command ${commandName}`)
 
       if (!command) { return }
       
       const reason = this.runInhibitors(event, commandName)
       if (await reason) {
-        this.client.log.debug('CommandHandler', `Command "${commandName}" in ${event.guild_id} finished`)
+        this.client.log.profile(`Command ${commandName}`)
 
         return this.client.rest.channel.createMessage(event.channel_id, await reason)
       }
 
       if (matched) {
         if (commandName === 'help' && command.substring(commandName.length + 1)) {
-          this.client.log.debug('CommandHandler', `Command "${commandName}" in ${event.guild_id} finished`)
+          this.client.log.profile(`Command ${commandName}`)
           this.statsClient.increment('command', 1, 1, [`command:${commandName}`, `guild:${event.guild_id}`], (error) => {
             if (error) {
               this.client.log.error('CommandHandler', error.message)
@@ -74,7 +71,7 @@ class CommandHandler extends EventHandler {
           })
           return await matched.run(event, command.substring(commandName.length + 1), this.commands)
         } else {
-          this.client.log.debug('CommandHandler', `Command "${commandName}" in ${event.guild_id} finished`)
+          this.client.log.profile(`Command ${commandName}`)
           this.statsClient.increment('command', 1, 1, [`command:${commandName}`, `guild:${event.guild_id}`], (error) => {
             if (error) {
               this.client.log.error('CommandHandler', error)
@@ -85,12 +82,11 @@ class CommandHandler extends EventHandler {
       }
       for (const c of this.commands.values()) {
         if (c.aliases && c.aliases.includes(commandName)) {
-          this.client.log.debug('CommandHandler', `Command "${commandName}" in ${event.guild_id} finished`)
+          this.client.log.profile(`Command ${commandName}`)
           return await c.run(event, command.substring(commandName.length + 1))
         }
       }
     } catch (error) {
-      console.error(error)
       this.client.log.error('CommandHandler', error.message)
     }
   }
