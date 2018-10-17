@@ -16,7 +16,7 @@
 		"cats-js": "^1.0.2",
 		"common-tags": "^1.8.0",
 		"dblapi.js": "^2.1.0",
-		"ghost-core": "https://gitlab.com/GhostStorm/Core.git#1a420259",
+		"ghost-core": "https://gitlab.com/GhostStorm/Core.git#f9804abd",
 		"ghost-worker": "https://gitlab.com/GhostStorm/ghost-worker.git#da0c0834",
 		"hot-shots": "^5.6.2",
 		"node-kitsu": "^1.0.1",
