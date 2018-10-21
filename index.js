@@ -1,6 +1,7 @@
 const Worker = require('ghost-worker')
 const DBL = require('dblapi.js')
 const path = require('path')
+const git = require('git-rev-sync')
 const info = require('./package.json')
 const dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI3NzAyMDcyNzA0MjExMzUzNiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTE4NTIzODk4fQ.q0iGYkuVAWiG8ZVVqQ60YSi2KR0jbqZBrqxzFEASipQ')
 const client = new Worker({
@@ -29,6 +30,8 @@ async function run () {
   \\_____|_|  |_|\\____/|_____/   |_|
     
     Version: ${info.version} By: ${info.author}
+
+    Commit ID: ${git.short()} Branch: ${git.branch()}
   `)
   client.log.info('Worker', 'Starting...')
   await client.initialize()
