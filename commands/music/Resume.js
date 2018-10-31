@@ -9,6 +9,10 @@ class Resume extends Command {
     return ['rs']
   }
 
+  get allowPM () {
+    return false
+  }
+  
   async run (event, args) {
     const userVoiceChannel = await this.client.cache.guilds[event.guild_id].voice_states.get(event.author.id)
     const selfVoiceChannel = await this.client.cache.guilds[event.guild_id].voice_states.get(process.env.BOT_ID)

@@ -9,6 +9,10 @@ class Leave extends Command {
     return []
   }
 
+  get allowPM () {
+    return false
+  }
+  
   async run (event, args) {
     this.client.shard.sendWS(event.gateway, 'LAVALINK', { action: 'STOP', guild_id: event.guild_id })
     this.client.shard.sendWS(event.gateway, 'VOICE_STATE_UPDATE', { shard_id: event.shard_id, guild_id: event.guild_id, channel_id: null, self_mute: false, self_deaf: false })

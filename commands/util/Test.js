@@ -9,10 +9,11 @@ class Test extends Command {
     return ['say']
   }
 
+  get allowPM () {
+    return false
+  }
   async run (event, args) {
-    const userVoiceChannel = await this.client.cache.guilds[event.guild_id].voice_states.get(event.author.id)
-    this.client.log.debug('Test', userVoiceChannel.id)
-    this.client.log.debug('Test', event.nonce)
+
     const used = process.memoryUsage()
     for(const key in used){
       this.client.log.debug('Test', `${key} ${Math.round(used[key] / 1024 / 1024 * 100) / 100}`)
@@ -25,6 +26,9 @@ class Test extends Command {
         }
       }
     }
+
+    this.client.shard.sendWS(event.gateway, 'EVENT_RELOAD', { action: 'test' })
+
     // if (!this.client.isOwner(event.author.id)) { return }
     // let queue
     // let tracks

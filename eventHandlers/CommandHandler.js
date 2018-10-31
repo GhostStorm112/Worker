@@ -57,7 +57,6 @@ class CommandHandler extends EventHandler {
       const reason = this.runInhibitors(event, commandName)
       if (await reason) {
         this.client.log.profile(`Command ${commandName}`)
-
         return this.client.rest.channel.createMessage(event.channel_id, await reason)
       }
 
@@ -77,13 +76,21 @@ class CommandHandler extends EventHandler {
               this.client.log.error('CommandHandler', error)
             }
           })
-          return await matched.run(event, command.substring(commandName.length + 1))
+          if(matched.allowPM && !event.guild_id){
+            return this.client.rest.channel.createMessage(event.channel_id, 'This command is not allowed in PM\'S!') 
+          } else {
+            return await matched.run(event, command.substring(commandName.length + 1))
+          }
         }
       }
       for (const c of this.commands.values()) {
         if (c.aliases && c.aliases.includes(commandName)) {
           this.client.log.profile(`Command ${commandName}`)
-          return await c.run(event, command.substring(commandName.length + 1))
+          if(c.allowPM){
+            return await c.run(event, command.substring(commandName.length + 1))
+          } else {
+            return this.client.rest.channel.createMessage(event.channel_id, 'This command is not allowed in PM\'S!') 
+          }
         }
       }
     } catch (error) {

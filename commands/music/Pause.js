@@ -9,6 +9,10 @@ class Pause extends Command {
     return ['pp']
   }
 
+  get allowPM () {
+    return false
+  }
+  
   async run (event, args) {
     this.client.shard.sendWS(event.gateway, 'LAVALINK', { action: 'PAUSE', guild_id: event.guild_id })
     return this.client.rest.channel.createMessage(event.channel_id, 'Pausing the music')

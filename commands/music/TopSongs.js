@@ -40,7 +40,6 @@ class TopSongs extends Command {
         message = message + `Rank: "${song.rank}" Title: "${song.title}" Artist: "${song.artist}"\n`
       }
       message = message + '```'
-      // this.client.log.info('topsongs', message)
       this.client.cache.storage.set('topsongs', rsongs)
       return this.client.rest.channel.createMessage(event.channel_id, message)
     })

@@ -11,6 +11,10 @@ class Queue extends Command {
     return ['queue']
   }
 
+  get allowPM () {
+    return false
+  }
+
   async run (event, args) {
     const queue = await this.client.lavalink.queues.get(event.guild_id)
     let tracks = await queue.tracks()
