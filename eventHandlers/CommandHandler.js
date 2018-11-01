@@ -86,7 +86,7 @@ class CommandHandler extends EventHandler {
       for (const c of this.commands.values()) {
         if (c.aliases && c.aliases.includes(commandName)) {
           this.client.log.profile(`Command ${commandName}`)
-          if(c.allowPM){
+          if(matched.allowPM && !event.guild_id){
             return await c.run(event, command.substring(commandName.length + 1))
           } else {
             return this.client.rest.channel.createMessage(event.channel_id, 'This command is not allowed in PM\'S!') 
