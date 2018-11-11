@@ -9,6 +9,10 @@ class ShardS extends Command {
     return ['shardss']
   }
 
+  get allowPM () {
+    return true
+  }
+
   async run (event, args) {
     if (!this.client.isOwner(event.author.id)) { return }
     const shards = await this.client.cache.storage.get('shards', {type: 'arr'})
