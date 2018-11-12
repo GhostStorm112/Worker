@@ -13,8 +13,8 @@ class CacheHandler extends EventHandler {
   }
 
   async handle (event) {
-    this.client.log.debug('Cache', `Caching ${event.type}`)
-    switch (event.type) {
+    this.client.log.debug('Cache', `Caching ${event.t}`)
+    switch (event.t) {
       case 'CHANNEL_CREATE':
         await this.client.cache.actions.channels.upsert(event)
         break

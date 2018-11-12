@@ -46,7 +46,7 @@ class Play extends Command {
 
     if (!selfVoiceChannel || !selfVoiceChannel.channel_id) {
       this.client.log.debug('Play', `Joining channel ${userVoiceChannel.channel_id}`)
-      await this.client.shard.sendWS(event.gateway, 'VOICE_STATE_UPDATE', { shard_id: event.shard_id, guild_id: event.guild_id, channel_id: userVoiceChannel.channel_id, self_mute: false, self_deaf: false })
+      await this.client.shard.sendWS(event.gateway, 'W_VOICE_STATE_UPDATE', { shard_id: event.shard_id, guild_id: event.guild_id, channel_id: userVoiceChannel.channel_id, self_mute: false, self_deaf: false })
     }
 
     try {
@@ -60,7 +60,7 @@ class Play extends Command {
     } catch (error) {
       return this.client.rest.channel.createMessage(event.channel_id, 'What ever you did it didn\'t work')
     }
-
+    
     this.client.log.debug('Play', `Playing in ${event.guild_id} on ${event.shard_id}`)
     this.client.shard.sendWS(event.gateway, 'LAVALINK', { action: 'PLAY', shard_id: event.shard_id, guild_id: event.guild_id, track: data.tracks[0].track })
 
