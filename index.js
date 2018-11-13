@@ -16,7 +16,9 @@ const client = new Worker({
   lavalinkWs: process.env.LAVALINK_WS,
   discordToken: process.env.TOKEN,
   ownerId: process.env.OWNER_ID,
-  restHost: process.env.REST_HOST
+  restHost: process.env.REST_HOST,
+  commandPath: path.join(__dirname, './commands/'),
+  inhibitorPath: path.join(__dirname, './commandInhibitors')
 })
 async function run () {
   client.log.mode = 1

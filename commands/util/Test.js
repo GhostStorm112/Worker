@@ -26,7 +26,7 @@ class Test extends Command {
         }
       }
     }
-
+    this.client.commandHandler.reload()
     this.client.shard.sendWS(event.gateway, 'EVENT_RELOAD', { action: 'test' })
 
     // if (!this.client.isOwner(event.author.id)) { return }
