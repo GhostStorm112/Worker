@@ -9,8 +9,8 @@ class Help extends Command {
     return ['help']
   }
 
-  async run (event, args, commands) {
-    if (!args && !commands) {
+  async run (event, args) {
+    if (!args) {
       const author = event.author.id
       const channel = await this.client.rest.user.createDirectMessageChannel(author)
       return this.client.rest.channel.createMessage(channel.id, {
@@ -66,9 +66,9 @@ class Help extends Command {
         }
       })
     }
-    if (args && commands) {
-      if (commands.get(args)) {
-        return this.client.rest.channel.createMessage(event.channel_id, `Usage: \`\`${commands.get(args).usage}\`\``)
+    if (args) {
+      if (this.client.commandHandler.commands.get(args)) {
+        return this.client.rest.channel.createMessage(event.channel_id, `Usage: \`\`${this.client.commandHandler.commands.get(args).usage}\`\``)
       } else {
         return this.client.rest.channel.createMessage(event.channel_id, 'Unknown command')
       }

@@ -1,4 +1,4 @@
-const Worker = require('ghost-worker')
+const Worker = require('../ghost-worker')
 const DBL = require('dblapi.js')
 const path = require('path')
 const git = require('git-rev-sync')
