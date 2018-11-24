@@ -1,14 +1,13 @@
 const Command = require('../../structures/Command')
 
 class Help extends Command {
-  get name () {
-    return 'help'
+  constructor(client){
+    super(client, {
+      name: 'help',
+      aliases: 'hp',
+      description: 'Sends help',
+    })
   }
-
-  get aliases () {
-    return ['help']
-  }
-
   async run (event, args) {
     if (!args) {
       const author = event.author.id

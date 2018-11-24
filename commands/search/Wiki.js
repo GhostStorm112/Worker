@@ -1,12 +1,12 @@
 const Command = require('../../structures/Command')
 const wiki = require('wikijs').default
 class Wiki extends Command {
-  get name () {
-    return 'wiki'
-  }
-
-  get aliases () {
-    return ['wikidiki']
+  constructor(client){
+    super(client, {
+      name: 'wiki',
+      aliases: 'wikidiki',
+      description: 'Searches wikipedia for your specified search',
+    })
   }
 
   async run (event, args) {

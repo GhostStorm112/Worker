@@ -2,12 +2,13 @@ const Command = require('../../structures/Command')
 const axios = require('axios')
 
 class Butt extends Command {
-  get name () {
-    return 'butts'
-  }
-
-  get aliases () {
-    return ['ass']
+  constructor(client){
+    super(client, {
+      name: 'butt',
+      aliases: 'ass',
+      description: 'Sens a NSFW butt image',
+      nsfw: true,
+    })
   }
 
   async run (event, args) {

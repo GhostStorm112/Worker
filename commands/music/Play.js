@@ -1,21 +1,13 @@
 const Command = require('../../structures/Command')
 
 class Play extends Command {
-  get name () {
-    return 'play'
-  }
-  get info () {
-    return 'Plays a song or queus it if a song is already playing'
-  }
-
-  get usage () {
-    return "play <song>"
-  }
-  get aliases () {
-    return ['']
-  }
-  get allowPM () {
-    return false
+  constructor(client){
+    super(client, {
+      name: 'play',
+      description: 'Plays a song can be a url or anythign',
+      guildOnly: true,
+      usage: 'play <song>'
+    })
   }
 
   async run (event, args) {

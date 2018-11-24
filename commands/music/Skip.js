@@ -1,16 +1,13 @@
 const Command = require('../../structures/Command')
 
 class Skip extends Command {
-  get name () {
-    return 'skip'
-  }
-
-  get aliases () {
-    return ['sk']
-  }
-
-  get allowPM () {
-    return false
+  constructor(client){
+    super(client, {
+      name: 'skip',
+      aliases: 'sk',
+      description: 'Skips a song',
+      guildOnly: true,
+    })
   }
   
   async run (event, args) {

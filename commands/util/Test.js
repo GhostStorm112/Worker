@@ -1,16 +1,12 @@
 const Command = require('../../structures/Command')
 const RichEmbed = require('../../utils/RichEmbed')
 class Test extends Command {
-  get name () {
-    return 'test'
-  }
-
-  get aliases () {
-    return ['say']
-  }
-
-  get allowPM () {
-    return false
+  constructor(client){
+    super(client, {
+      name: 'test',
+      aliases: 'say',
+      description: 'My test command',
+    })
   }
   async run (event, args) {
 

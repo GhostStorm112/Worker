@@ -1,16 +1,13 @@
 const Command = require('../../structures/Command')
 
 class Pause extends Command {
-  get name () {
-    return 'pause'
-  }
-
-  get aliases () {
-    return ['pp']
-  }
-
-  get allowPM () {
-    return false
+  constructor(client){
+    super(client, {
+      name: 'pause',
+      aliases: 'pp',
+      description: 'Pauses the music',
+      guildOnly: true,
+    })
   }
   
   async run (event, args) {

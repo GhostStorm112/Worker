@@ -2,12 +2,12 @@ const Command = require('../../structures/Command')
 const billboard = require('billboard-top-100').getChart
 
 class TopSongs extends Command {
-  get name () {
-    return 'topsongs'
-  }
-
-  get aliases () {
-    return ['tops']
+  constructor(client){
+    super(client, {
+      name: 'topsongs',
+      aliases: 'ts',
+      description: 'Gets a lits of topsongs from billboard top 10',
+    })
   }
 
   async run (event, args) {

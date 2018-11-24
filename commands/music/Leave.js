@@ -1,16 +1,12 @@
 const Command = require('../../structures/Command')
 
 class Leave extends Command {
-  get name () {
-    return 'leave'
-  }
-
-  get aliases () {
-    return []
-  }
-
-  get allowPM () {
-    return false
+  constructor(client){
+    super(client, {
+      name: 'leave',
+      description: 'Makes the bot leave the channel',
+      guildOnly: true,
+    })
   }
   
   async run (event, args) {

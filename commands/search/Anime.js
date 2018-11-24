@@ -3,12 +3,12 @@ const kitsu = require('node-kitsu')
 const RichEmbed = require('../../utils/RichEmbed')
 
 class Anime extends Command {
-  get name () {
-    return 'anime'
-  }
-
-  get aliases () {
-    return ['an']
+  constructor(client){
+    super(client, {
+      name: 'anime',
+      aliases: 'an',
+      description: 'Searches kitsu for your specified anime',
+    })
   }
 
   async run (event, args) {

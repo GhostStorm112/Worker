@@ -1,17 +1,13 @@
 const Command = require('../../structures/Command')
 const Cats = require('cats-js')
 
-class Echo extends Command {
-  get name () {
-    return 'cat'
-  }
-
-  get aliases () {
-    return ['cc']
-  }
-
-  get usage () {
-    return 'cat'
+class Cat extends Command {
+  constructor(client){
+    super(client, {
+      name: 'cat',
+      aliases: 'cc',
+      description: 'Sends a image of a cat',
+    })
   }
 
   async run (event, args) {
@@ -40,4 +36,4 @@ class Echo extends Command {
   }
 }
 
-module.exports = Echo
+module.exports = Cat

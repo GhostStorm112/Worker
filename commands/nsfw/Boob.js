@@ -2,14 +2,14 @@ const Command = require('../../structures/Command')
 const axios = require('axios')
 
 class Boob extends Command {
-  get name () {
-    return 'boobs'
+  constructor(client){
+    super(client, {
+      name: 'boobs',
+      aliases: ['boobies', 'tit', 'boob', 'boobie', 'breast'],
+      description: 'Sens a NSFW boob image',
+      nsfw: true,
+    })
   }
-
-  get aliases () {
-    return ['boobies', 'tit', 'boob', 'boobie', 'breast']
-  }
-
   async run (event, args) {
     const channel = await this.client.rest.channel.getChannel(event.channel_id)
     if (channel.nsfw) {

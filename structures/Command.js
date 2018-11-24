@@ -4,16 +4,19 @@
  * @prop {String} name The command's name
  */
 class Command {
-  constructor (handler) {
-    Object.defineProperty(this, 'client', { value: handler.client })
+  constructor (client, info) {
+    Object.defineProperty(this, 'client', { value: client.client })
+    this.name = info.name
+    this.aliases = info.aliases || []
+    this.description = info.description
+    
+    this.guildOnly = Boolean(info.guildOnly)
+    this.ownerOnly = Boolean(info.ownerOnly)
+    this.nsfw = Boolean(info.nsfw)
+    this.userPermissions = info.userPermissions || null
+    this.usage = info.usage
   }
 
-  get name () {
-    throw new Error('name not set')
-  }
-  get usage () {
-    throw new Error('usage not set')
-  }
 
   /**
   * Function that executes the command according to the passed arguments

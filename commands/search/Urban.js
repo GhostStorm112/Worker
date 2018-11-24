@@ -3,12 +3,12 @@ const ud = require('urban-dictionary')
 const RichEmbed = require('../../utils/RichEmbed')
 
 class Urban extends Command {
-  get name () {
-    return 'urban'
-  }
-
-  get aliases () {
-    return ['urbandiki']
+  constructor(client){
+    super(client, {
+      name: 'urban',
+      aliases: 'urbanwiki',
+      description: 'Searches urbanwiki for your specified word',
+    })
   }
 
   async run (event, args) {

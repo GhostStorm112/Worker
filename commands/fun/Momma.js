@@ -1,12 +1,12 @@
 const Command = require('../../structures/Command')
 const axios = require('axios')
 class Momma extends Command {
-  get name () {
-    return 'yomomma'
-  }
-
-  get aliases () {
-    return ['yomom']
+  constructor(client){
+    super(client, {
+      name: 'yomomma',
+      aliases: 'momma',
+      description: 'Sends a yomomma joke',
+    })
   }
 
   async run (event, args) {

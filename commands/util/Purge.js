@@ -1,12 +1,12 @@
 const Command = require('../../structures/Command')
 
 class Purge extends Command {
-  get name () {
-    return 'purge'
-  }
-
-  get aliases () {
-    return ['clear']
+  constructor(client){
+    super(client, {
+      name: 'purge',
+      aliases: 'clear',
+      description: 'Purges your specified about of messages from the channel',
+    })
   }
 
   async run (event, args) {

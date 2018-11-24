@@ -3,16 +3,12 @@ const paginate = require('../../utils/paginate')
 const { stripIndents } = require('common-tags')
 
 class Queue extends Command {
-  get name () {
-    return 'queue'
-  }
-
-  get aliases () {
-    return ['queue']
-  }
-
-  get allowPM () {
-    return false
+  constructor(client){
+    super(client, {
+      name: 'queue',
+      description: 'Shows the current music queue',
+      guildOnly: true,
+    })
   }
 
   async run (event, args) {

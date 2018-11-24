@@ -1,12 +1,12 @@
 const Command = require('../../structures/Command')
 
 class Lockdown extends Command {
-  get name () {
-    return 'lockdown'
-  }
-
-  get aliases () {
-    return ['ld']
+  constructor(client){
+    super(client, {
+      name: 'lockdown',
+      aliases: 'ld',
+      description: 'Lockdowns a channel so ownly specific roles can talk',
+    })
   }
 
   async run (event, args) {

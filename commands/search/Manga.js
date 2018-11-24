@@ -2,12 +2,12 @@ const Command = require('../../structures/Command')
 const kitsu = require('node-kitsu')
 const RichEmbed = require('../../utils/RichEmbed')
 class Manga extends Command {
-  get name () {
-    return 'manga'
-  }
-
-  get aliases () {
-    return ['man']
+  constructor(client){
+    super(client, {
+      name: 'manga',
+      aliases: 'man',
+      description: 'Searches kitsu for your specified manga',
+    })
   }
 
   async run (event, args) {

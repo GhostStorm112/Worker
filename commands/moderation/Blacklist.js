@@ -1,12 +1,12 @@
 const Command = require('../../structures/Command')
 
 class Blacklist extends Command {
-  get name () {
-    return 'blacklist'
-  }
-
-  get aliases () {
-    return ['bl']
+  constructor(client){
+    super(client, {
+      name: 'blacklist',
+      aliases: 'bl',
+      description: 'Blacklists a user from the bot',
+    })
   }
 
   async run (event, args) {

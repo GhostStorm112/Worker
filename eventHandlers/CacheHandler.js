@@ -25,6 +25,7 @@ class CacheHandler extends EventHandler {
         await this.client.cache.actions.channels.upsert(event)
         break
       case 'CHANNEL_UPDATE':
+        await this.client.cache.actions.channels.upsert(event)
         break
       case 'GUILD_BAN_ADD':
         break

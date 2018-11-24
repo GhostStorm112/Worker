@@ -1,12 +1,11 @@
 const Command = require('../../structures/Command')
 
 class Shutdown extends Command {
-  get name () {
-    return 'shutdown'
-  }
-
-  get aliases () {
-    return ['sh']
+  constructor(client){
+    super(client, {
+      name: 'shutdown',
+      description: 'Shutdown the bot',
+    })
   }
 
   async run (event, args) {

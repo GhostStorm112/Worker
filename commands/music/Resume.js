@@ -1,16 +1,13 @@
 const Command = require('../../structures/Command')
 
 class Resume extends Command {
-  get name () {
-    return 'resume'
-  }
-
-  get aliases () {
-    return ['rs']
-  }
-
-  get allowPM () {
-    return false
+  constructor(client){
+    super(client, {
+      name: 'resume',
+      aliases: 'rs',
+      description: 'Resumes the music',
+      guildOnly: true,
+    })
   }
   
   async run (event, args) {

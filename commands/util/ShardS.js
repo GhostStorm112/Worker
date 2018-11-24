@@ -1,16 +1,12 @@
 const Command = require('../../structures/Command')
 
 class ShardS extends Command {
-  get name () {
-    return 'shards'
-  }
-
-  get aliases () {
-    return ['shardss']
-  }
-
-  get allowPM () {
-    return true
+  constructor(client){
+    super(client, {
+      name: 'shards',
+      aliases: 'ss',
+      description: 'Send shard status',
+    })
   }
 
   async run (event, args) {

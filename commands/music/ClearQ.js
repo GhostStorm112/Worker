@@ -1,16 +1,13 @@
 const Command = require('../../structures/Command')
 
-class Echo extends Command {
-  get name () {
-    return 'echo'
-  }
-
-  get aliases () {
-    return ['say']
-  }
-
-  get allowPM () {
-    return false
+class ClearQ extends Command {
+  constructor(client){
+    super(client, {
+      name: 'clearq',
+      aliases: 'clq',
+      description: 'Clears the music queue',
+      guildOnly: true,
+    })
   }
   
   async run (event, args) {
@@ -19,4 +16,4 @@ class Echo extends Command {
   }
 }
 
-module.exports = Echo
+module.exports = ClearQ
