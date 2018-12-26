@@ -17,7 +17,6 @@ class Queue extends Command {
     const playing = await queue.current()
     if (!tracks.length > 0 && !playing) { return this.client.rest.channel.createMessage(event.channel_id, 'The queue is empty :cry:') }
     tracks = [playing.track, ...tracks]
-
     if ((!playing && !tracks) || (!playing.length && !tracks.length)) {
       return this.client.rest.channel.createMessage(event.channel_id, 'Can\'t show you what I don\'t have.')
     }
@@ -27,20 +26,18 @@ class Queue extends Command {
     for (const track of tracks) {
       data.push(await this.client.lavalink.decode(track))
     }
-
-    const totalLength = data.reduce((prev, song) => prev + song.length, 0)
+    const totalLength = data.reduce((prev, song) => prev + song.info.length, 0)
     const paginated = paginate(data.slice(1), args)
     let index = 10 * (paginated.page - 1)
-
     return this.client.rest.channel.createMessage(event.channel_id, {
       embed: {
         color: 0xff0000,
         description: stripIndents`
                 **Song queue${paginated.page > 1 ? `, page ${paginated.page}` : ''}**
 
-                ${paginated.items.length ? paginated.items.map(song => `**${++index}.** [${song.title}](${song.uri}) (${this.timeString(song.length)})`).join('\n') : 'No more songs in queue.'}
+                ${paginated.items.length ? paginated.items.map(song => `**${++index}.** [${song.info.title}](${song.info.uri}) (${this.timeString(song.info.length)})`).join('\n') : 'No more songs in queue.'}
 
-                **Now playing:** [${data[0].title}](${data[0].uri}) (${this.timeString(data[0].length)})
+                **Now playing:** [${data[0].info.title}](${data[0].info.uri}) (${this.timeString(data[0].info.length)})
 
                 **Total queue time:** ${this.timeString(totalLength)}
             `,

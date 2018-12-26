@@ -35,10 +35,7 @@ async function run () {
 
     Commit ID: ${git.short()} Branch: ${git.branch()}
   `)
-  client.log.info('Worker', 'Starting...')
-  await client.initialize()
-  client.log.info('Worker', 'Ready')
-
+  client.initialize()
   client.on('dblu', async () => {
     client.log.info('DBL', `Updated Discord Bot List with ${await client.cache.guild.getIndexCount()}`)
     dbl.postStats(await client.cache.guild.getIndexCount(), null, null)
