@@ -18,9 +18,6 @@ class CacheHandler extends EventHandler {
       case 'CHANNEL_CREATE':
         await this.client.cache.actions.channels.upsert(event)
         break
-      case 'CHANNEL_DELETE':
-        await this.client.cache.actions.channels.delete(event)
-        break
       case 'CHANNEL_PINS_UPDATE':
         await this.client.cache.actions.channels.upsert(event)
         break
