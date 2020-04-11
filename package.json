@@ -10,14 +10,14 @@
 		"test": "eslint ."
 	},
 	"dependencies": {
-		"SettingsManager": "https://gitlab.com/GhostStorm/SettingsManager.git",
+		"SettingsManager": "git+ssh://git@gitlab.com:GhostStorm/SettingsManager.git",
 		"axios": "^0.18.0",
 		"billboard-top-100": "^2.1.1",
 		"cats-js": "^1.0.2",
 		"common-tags": "^1.8.0",
 		"dblapi.js": "^2.3.0",
-		"ghost-core": "https://gitlab.com/GhostStorm/Core.git",
-		"ghost-worker": "https://gitlab.com/GhostStorm/ghost-worker.git",
+		"ghost-core": "git+ssh://git@gitlab.com:GhostStorm/Core.git",
+		"ghost-worker": "git+ssh://git@gitlab.com:GhostStorm/ghost-worker.git",
 		"git-rev-sync": "^1.12.0",
 		"hot-shots": "^5.9.2",
 		"node-kitsu": "^1.1.1",
